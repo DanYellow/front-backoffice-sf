@@ -1,0 +1,21 @@
+{
+  "name": "front-backoffice-sf",
+  "description": "front-version of new backoffice",
+  "main": "index.js",
+  "authors": [
+    "no one"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/DanYellow/front-backoffice-sf",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap-sass": "~3.3.6"
+  }
+}
