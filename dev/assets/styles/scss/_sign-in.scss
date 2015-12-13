@@ -1,0 +1,57 @@
+.sign-in {
+    background-color: $main-bg-color;
+    max-width: 485px;
+    margin: 0 auto; 
+    border: 1px solid $main-border-color;
+    border-radius: $main-border-radius-size;
+    box-shadow: 0px 0px 46px 0px rgba(181, 197, 208, 0.3);
+    margin-top: 90px;
+
+    header {
+        padding: 32px 32px 0 32px;
+        background: #eff1f3;
+        border-bottom: 1px solid $main-border-color;
+        text-align: center;
+        h2 {
+            font-family: $opensans-light;
+        }
+
+        h4 {
+            font-family: $opensans-regular;
+        }
+    }
+
+    form {
+        padding: 20px 80px 32px 80px;
+
+        @media screen and (max-width: $break-small) {
+            padding: 20px 20px 32px 20px;
+        }
+        
+        label {
+            margin-bottom: 0px;
+            a {
+                float: right;
+            }
+        }
+
+        .form-element { 
+            &> * {
+                display: block;
+            }
+        }
+
+        input {
+            height: 40px;
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+
+            &[type="submit"] {
+                width: 50%;
+            }
+        }
+    }
+}
