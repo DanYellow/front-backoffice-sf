@@ -1,0 +1,26 @@
+{
+  "name": "front-backoffice-sf",
+  "version": "1.0.0",
+  "description": "front-version of new backoffice",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {
+    "gulp-sass": "^2.1.1",
+    "gulp-swig": "^0.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanYellow/front-backoffice-sf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanYellow/front-backoffice-sf/issues"
+  },
+  "homepage": "https://github.com/DanYellow/front-backoffice-sf#readme"
+}
