@@ -1,14 +1,14 @@
 var gulp = require('gulp');
-
+var clean = require('gulp-clean');
 
 
 var swig = require('gulp-swig');
 
 gulp.task('templates', function() {
-  gulp.src('./dev/views/**/*.html')
+  gulp.src('./dev/views/*.html')
     .pipe(swig())
     .pipe(swig({defaults: { cache: false }}))
-    .pipe(gulp.dest('./public/views/'));
+    .pipe(gulp.dest('./public/'));
 });
 
 
@@ -28,11 +28,11 @@ gulp.task('sass', function () {
 var browserSync = require('browser-sync').create();
 
 // Static server
-gulp.task('browser-sync', ['sass', 'templates', 'fonts'], function() {
+gulp.task('browser-sync', ['sass', 'templates', 'fonts',], function() {
     browserSync.init({
         server: {
             baseDir: ["public", "dev"],
-            index: "views/connexion.html"
+            index: "index.html"
         }
     });
 
@@ -49,5 +49,10 @@ gulp.task('fonts', function(){
   .pipe(gulp.dest('./public/assets/fonts'));
 });
 
+
+gulp.task('clean', function () {
+  return gulp.src(['!public/assets/fonts', 'public'], {read: false})
+    .pipe(clean());
+});
 
 gulp.task('default', ['browser-sync']);
