@@ -12,3 +12,61 @@ body {
 
     color: $main-font-color;
 }
+
+header#main-header {
+    background-color: #4a4a4a;
+    height: 30px;
+    color: white;
+
+    .container, .row {
+        height: 100%;
+    }
+
+    a {
+        color: white;
+    }
+
+    .row {
+        & > * {
+            @include dtable();
+        }
+    }
+}
+
+.main-container {
+    margin-top: 60px;
+}
+
+#main-wrapper {
+    background-color: $main-bg-color;
+    border: 1px solid $main-border-color;
+    border-radius: $main-border-radius-size;
+    padding: 16px 12px;
+    header {
+        h3 {
+            margin-bottom: 0;
+        }
+        ul {
+            padding: 0;
+            li {
+                display: inline-block;
+                font-size: 14px;
+                &:after {
+                    content: " - ";
+                    color: $second-font-color;
+                    font-size: 14px;
+                }
+
+                &:last-child {
+                    &:after {
+                        content: "";
+                    }
+                }
+
+                a {
+                    color: $link-color;
+                }
+            }
+        }
+    }
+}

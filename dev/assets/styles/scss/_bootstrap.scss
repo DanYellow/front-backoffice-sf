@@ -21,3 +21,15 @@ label {
     font-family: $opensans-light;
     font-size: 12px;
 }
+
+
+@mixin dtable {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+
+    &>* {
+        display:table-cell;
+        vertical-align:middle;
+    }
+}

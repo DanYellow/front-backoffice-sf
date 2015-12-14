@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="row main-container">
+        {% include "../includes/navigation.html" %}
+
+        <section class="col-xs-12 col-md-9">
+            <div id="main-wrapper">
+                <header>
+                    <h3 class="semibold">
+                        {% block section-title %}Page de connexion{% endblock %}
+                    </h3>
+                    <nav>
+                        <ul>
+                            <li>Bibliothèque d'images</li>
+                            <li><a href="#">Ajouter une image</a></li>
+                        </ul>
+                    </nav>
+                </header>
+            </div>
+            {% block main %}{% endblock %}
+        </section>
+           
+    </div> 
+{% endblock %}
