@@ -29,6 +29,7 @@ node_modules
 .DS_STORE
 
 public
+bower_components
 
 **/.sass-cache
 **/.sass-cache/*
