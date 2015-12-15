@@ -9,14 +9,22 @@
             <div id="main-wrapper">
                 <header>
                     <h3 class="semibold">
-                        {% block section-title %}Page de connexion{% endblock %}
+                        {% block section-title %}Put a title plz{% endblock %}
                     </h3>
                     <nav>
-                        <ul>
+                        <ul class="menu-header">
                             <li>Bibliothèque d'images</li>
                             <li><a href="#">Ajouter une image</a></li>
                         </ul>
                     </nav>
+                    <div class="filters__container">
+                        <p class="h4">Filtres</p>
+                        <ul class="filters list-unstyled">
+                            <li><a href="#" class="active">Tout</a></li>
+                            <li><a href="#">Work</a></li>
+                            <li><a href="#">Perso</a></li>
+                        </ul>
+                    </div>
                 </header>
                 {% block main %}{% endblock %}
             </div>

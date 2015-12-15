@@ -3,6 +3,7 @@ html {
     background: linear-gradient(#f2f6fd, #ffffff);
     width: 100%;
     min-height: 100%;
+    -webkit-overflow-scrolling: touch;
 } 
 
 body {
@@ -50,7 +51,7 @@ header#main-header {
             margin-bottom: 0;
         }
         
-        ul {
+        ul.menu-header {
             padding: 0;
             li {
                 display: inline-block;

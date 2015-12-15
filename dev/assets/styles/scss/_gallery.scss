@@ -23,7 +23,7 @@
         margin-bottom: auto;
         cursor: pointer;
 
-        &:hover, &:focus, &:active {
+        &:hover, &:focus {
             .list-gallery__elmt-container {
                 opacity: 1;
             }

@@ -1,0 +1,43 @@
+.filters__container {
+    margin-top: 12px;
+    & > * {
+        display: inline-block;
+    }
+    & > p {
+        margin-right: 10px;
+    }
+    .filters {
+        li {
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 6px;
+        }
+        a {
+            padding: 3px 13px;
+            background-color: #b5c5d0;
+            display: block;
+            border: 1px solid transparent; // Prevent div to move
+            color: $main-font-color;
+
+            &:hover {
+                border: 1px solid $input-border-color;
+
+/*                 & ~ .list-gallery__elmt {
+    opacity: 0.5;
+    &.perso {
+        opacity: 1;
+    }
+} */
+            }
+
+            &:active {
+                background-color: #9cb0bd;
+            }
+
+            &.active {
+                background-color: $main-font-color;
+                color: #b5c5d0;
+            }
+        }
+    }
+}
