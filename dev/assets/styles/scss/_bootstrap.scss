@@ -33,3 +33,25 @@ label {
         vertical-align:middle;
     }
 }
+
+.reset-btn {
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+.distruptive {
+    color: #a7120c;
+}
+
+.stack-xs {
+    @media screen and (max-width: $screen-md) {
+        @for $i from 1 through 12 {
+            .col-xs-#{$i} {
+                margin-bottom: 20px;
+            }
+          }
+    }
+}

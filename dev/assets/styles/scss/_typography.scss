@@ -17,6 +17,22 @@ h4, .h4 {
     font-family: $opensans-light;
 }
 
+@mixin light {
+    font-family: $opensans-light;
+}
+
 .semibold {
     font-family: $opensans-semibold;
+}
+
+@mixin semibold {
+    font-family: $opensans-semibold;
+}
+
+.regular {
+    font-family: $opensans-regular;
+}
+
+@mixin regular {
+    font-family: $opensans-regular;
 }

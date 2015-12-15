@@ -19,7 +19,7 @@ var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('sass', function () {
   gulp.src('./dev/assets/styles/**/*.scss')
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(sass({outputStyle: 'outputStyle'}).on('error', sass.logError))
     .pipe(gulp.dest('./public/assets/styles'))
     .pipe(browserSync.stream()); 
 });

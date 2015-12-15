@@ -1,8 +1,25 @@
 {% extends 'layout/base-backoffice.html' %}
 
-{% block title %}Page de connexion{% endblock %}
+{% block title %}Galerie{% endblock %}
 
 {% block section-title %}Galerie{% endblock %}
+
+{% import 'macros/gallery.html' as gallery %}
+
 {% block main %}
-    
+    {% set datas = [{imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project1"},
+    {imgPath: "http://lorempixel.com/400/200/cats/1/", projectName:"Project2"},
+    {imgPath: "http://lorempixel.com/400/200/cats/2/", projectName:"Project3"},
+    {imgPath: "http://lorempixel.com/400/200/cats/3/", projectName:"Project4"},
+    {imgPath: "http://lorempixel.com/400/200/cats/5/", projectName:"Project5"},
+    {imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project6"},
+    {imgPath: "http://lorempixel.com/400/200/cats/7/", projectName:"Project6"},
+    {imgPath: "http://lorempixel.com/400/200/cats/8/", projectName:"Project6"},
+    {imgPath: "http://lorempixel.com/400/200/cats/9/", projectName:"Project6"}
+    ]  %}
+    <ul class="list-unstyled list-gallery">
+        {% for key, val in datas %}
+        {{ gallery.galleryelmt(val.imgPath, val.projectName) }}
+        {% endfor %}
+    </ul>
 {% endblock %}
