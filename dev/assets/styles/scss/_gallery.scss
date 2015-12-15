@@ -1,0 +1,110 @@
+.list-gallery {
+    li.list-gallery__elmt {
+        height: 100%;
+        width: 24.5%;
+        
+        @media screen and (max-width: $break-small) {
+            width: 100%;
+            padding-bottom: 42%;
+        }
+
+        @media screen and (min-width: $break-small) and (max-width: $screen-md-min) {
+            width: 49.5%;
+            padding-bottom: 30%;
+        }
+
+         
+        display: inline-block;
+        padding-bottom: 16.1983%;
+
+        position: relative;
+        overflow: hidden;
+        margin-right: auto;
+        margin-bottom: auto;
+        cursor: pointer;
+
+        &:hover, &:focus, &:active {
+            .list-gallery__elmt-container {
+                opacity: 1;
+            }
+
+            figure:after {
+                opacity: 1;
+            }
+        }
+
+        .list-gallery__elmt-container {
+            border: 2px solid $main-font-color;         
+            opacity: 0;
+            position: absolute;
+            z-index: 1;
+            top: 0; left: 0; right: 0; bottom: 0;
+            padding: 5px 10px 3px;
+
+            ul.infos {
+                li {
+                    font-size: 12px;
+                    color: white;
+                    margin-bottom: -5px;
+                    &:first-child {
+                        font-size: 14px;
+                         @include semibold();
+                         margin-bottom: -2px;
+                    }
+                }
+            }
+        }
+
+        .toolbar {
+            position: absolute;
+            bottom: 3px; 
+            width: 100%;
+            width: calc(100% - 20px);
+            width: -moz-calc(100% - 20px);
+            background-color: rgba(255, 255, 255, .3);
+            border-bottom: 1px solid white;
+            border-top: 1px solid white;
+            padding: 4px 0;
+            text-align: center;
+            color: white;
+
+            li {
+                font-size: 12px;
+                display: inline-block;
+
+                &:after {
+                    content: ' | ';
+                }
+
+                &:last-child {
+                    &:after {
+                        content: '';
+                    }
+                }
+                
+                a {
+                    color: white;
+                }
+            }
+        }
+
+        figure {
+            height: 100%;
+            &:after {
+                content: " "; 
+                position: absolute;
+                opacity: 0;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background-color: rgba(26, 42, 53, .42);
+            } 
+        }
+        img {
+            position: absolute;
+            width:100%; 
+            height:100%;
+            object-fit: cover;
+            z-index: 0;
+            top: 0;
+        }
+    }
+}

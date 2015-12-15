@@ -1,0 +1,17 @@
+{% macro galleryelmt(imgPath, projectName) %}
+  <li class="list-gallery__elmt" tabindex="1">
+    <div class="list-gallery__elmt-container">
+        <ul class="list-unstyled infos">
+            <li>{{ projectName }}</li>
+            <li>Work</li>
+            <li>5 images</li>
+        </ul>
+
+        <ul class="toolbar list-unstyled">
+            <li><a href="fefe" title="accéder {{ projectName }}">Modifier</a></li>
+            <li><button class="reset-btn distruptive">Supprimer</button></li> 
+        </ul>
+    </div>
+    <figure><img src="{{ imgPath }}" alt="" /></figure>
+  </li>
+{% endmacro %}
