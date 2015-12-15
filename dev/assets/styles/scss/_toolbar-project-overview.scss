@@ -1,0 +1,104 @@
+#pages-overview-toolbar {
+    & * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    position: fixed;
+    bottom: 0;
+    height: 250px;
+    background-color: #f9f9f9;
+    width: 100%;
+    z-index: 9999;
+    border-top: 3px solid #1a2a35;
+
+    &.expanded {
+        bottom: -210px;
+    }
+
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    #toolbar__container {
+        overflow-x: scroll;
+        height: 100%;
+        width: 95.95%;
+    }
+
+    .toolbar__display-manager {
+        opacity: .8;
+        position: absolute;
+        top: 0;
+        bottom: 0px;
+        right: 0;
+        width: 50px;
+        background-color: white;
+        border-left: 1px solid #1a2a35;
+    }
+
+    ul.printscreens-list {
+        list-style: none;
+        white-space: nowrap;
+        font-size: 0;
+
+        li {
+            display: inline-block;
+            text-align: center;
+            width: 230px;
+            vertical-align: top;
+            font-size: 12px;
+
+            .text-container {
+                display: table;
+                position: relative;
+                width: 100%;
+                height: 35px;
+                overflow: hidden;
+                border-bottom: 1px solid #b5c5d0;
+                p {
+                    display: table-cell;
+                    vertical-align: middle;
+                    white-space: normal;
+                    padding: 0 13px;
+                }
+
+                border-left: 1px solid #b5c5d0;
+            }
+
+            &:first-child {
+                width: 135px;
+                
+                color: white;
+
+                .text-container {
+                    background-color: #1a2a35;
+                    border-left: none;
+                    border-bottom: 1px solid #1a2a35;
+                }
+
+                
+
+            }
+
+            figure {
+                width: 177px;
+                height: 177px;
+                overflow: hidden;
+                margin: 0 auto;
+                border-radius: 5px;
+                border: 1px solid #b5c5d0;
+                margin-top: 14px;
+            }
+
+            a {
+                display: block;
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            img {
+                height:100%; width:auto; vertical-align: top;
+            }
+        }
+    }
+}

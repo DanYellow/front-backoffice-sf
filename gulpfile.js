@@ -1,16 +1,46 @@
 var gulp = require('gulp');
 var clean = require('gulp-clean');
+var path = require("path");
+var fs = require("fs");
+
 
 
 var swig = require('gulp-swig');
 
-gulp.task('templates', function() {
-  gulp.src('./dev/views/*.html')
-    .pipe(swig())
-    .pipe(swig({defaults: { cache: false }}))
-    .pipe(gulp.dest('./public/'));
-});
+gulp.task('templates', function(req, res) {
+  var printscreenPath = "public/printscreens"
+  var printscreensArray = [];
+  var fileName = "", url = "";
 
+  fs.readdir(printscreenPath, function (err, files) {
+      if (err) {
+          throw err;
+      }
+
+      files.map(function (file) {
+          return path.join(printscreenPath, file);
+      }).filter(function (file) {
+          return fs.statSync(file).isFile();
+      }).forEach(function (file) { 
+          fileName = path.basename(file, path.extname(file))
+          url = fileName + ".html";
+          var tplToolbarObject = {name: fileName, imgPath: "printscreens/"+fileName+path.extname(file), path: url};
+          printscreensArray.push(tplToolbarObject)
+      });
+
+      var opts = {
+        load_json: false,
+        data: {
+          printscreens: printscreensArray
+        }
+      };
+
+      gulp.src('./dev/views/*.html')
+        .pipe(swig(opts))
+        .pipe(swig({defaults: { cache: false }}))
+        .pipe(gulp.dest('./public/'));
+  });
+});
 
 
 var sass = require('gulp-sass');
@@ -51,8 +81,12 @@ gulp.task('fonts', function(){
 
 
 gulp.task('clean', function () {
-  return gulp.src(['!public/assets/fonts', 'public'], {read: false})
+  return gulp.src(['public'], {read: false})
     .pipe(clean());
 });
 
+
 gulp.task('default', ['browser-sync']);
+
+
+gulp.task('package', ['clean']);
