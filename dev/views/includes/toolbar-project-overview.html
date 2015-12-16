@@ -1,14 +1,16 @@
 <footer id="pages-overview-toolbar">
-    <div id="toolbar__container">
-        <ul class="printscreens-list">
-            <li><div class="text-container"><p>Pages Overview</p></div></li>
-            {% for key, val in printscreens %}
-                <li><a href="{{ val.path }}">
-                    <div class="text-container"><p>{{ val.name }}</p></div>
-                    <figure><img src="{{ val.imgPath }}" alt=""></figure>
-                </a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="toolbar__display-manager"></div>
+    {% if printscreens %}
+        <div id="toolbar__container">
+            <ul class="printscreens-list">
+                <li><div class="text-container"><p>Pages Overview</p></div></li>
+                {% for key, val in printscreens %}
+                    <li><a href="{{ val.path }}">
+                        <div class="text-container"><p>{{ val.name }}</p></div>
+                        <figure><img src="{{ val.imgPath }}" alt=""></figure>
+                    </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="toolbar__display-manager"></div>
+    {% endif %}
 </footer>
