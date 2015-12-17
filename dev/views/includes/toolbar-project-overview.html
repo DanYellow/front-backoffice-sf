@@ -1,10 +1,9 @@
-{{ datas.printscreens }}
 <footer id="pages-overview-toolbar">
         <div id="toolbar__container">
 
             <ul class="printscreens-list">
                 <li><div class="text-container"><p><a href="http://127.0.0.1:3000">Pages Overview</a></p></div></li>
-                {% for printscreenObj in datas.printscreens %}
+                {% for printscreenObj in printscreensDatas %}
                     <li><a href="{{ printscreenObj.path }}">
                         <div class="text-container"><p>{{ printscreenObj.tplName }}</p></div>
                         <figure><img src="{{ printscreenObj.imgPath }}" alt=""></figure>

@@ -20,8 +20,9 @@
 
     #toolbar__container {
         overflow-x: scroll;
+        overflow-y: hidden;
         height: 100%;
-        width: 95.95%;
+        width: 95.5%;
     }
 
     .toolbar__display-manager {
@@ -46,6 +47,7 @@
             width: 230px;
             vertical-align: top;
             font-size: 12px;
+            padding-bottom: 6px;
 
             .text-container {
                 display: table;
@@ -66,7 +68,6 @@
 
             &:first-child {
                 width: 135px;
-                
                 color: white;
 
                 .text-container {
@@ -90,7 +91,7 @@
             }
 
             a {
-                display: block;
+                display: inline;
                 height: 100%;
                 width: 100%;
                 overflow: hidden;

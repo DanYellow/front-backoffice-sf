@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var clean = require('gulp-clean');
 var path = require("path");
 var fs = require("fs");
-//var app = require('express')();
+var app = require('express');
 
 
 
@@ -32,7 +32,7 @@ gulp.task('templates', function(req, res) {
   } catch (e) {
 
   }
-  // app.address().port
+  console.log(app)
   var opts = {
     datas: {
       printscreens: printscreensArray
@@ -40,11 +40,11 @@ gulp.task('templates', function(req, res) {
   };
 
   var nunjucksRender = require('gulp-nunjucks-render');
-  console.log(printscreensArray)
+
   nunjucksRender.nunjucks.configure(['./dev/views/'], {watch: false});
   return gulp.src('./dev/views/*.html')
     .pipe(nunjucksRender(opts))
-    .pipe(gulp.dest('./public'));
+    .pipe(gulp.dest('public'));
 });
 
 
@@ -63,7 +63,7 @@ gulp.task('sass', function () {
 var browserSync = require('browser-sync').create();
 
 // Static server
-gulp.task('browser-sync', ['sass', 'templates', 'fonts',], function() {
+gulp.task('browser-sync', ['sass', 'templates', 'fonts'], function() {
     browserSync.init({
         server: {
             baseDir: ["public", "dev"],
@@ -133,9 +133,11 @@ function sanitizeFilesNames () {
 }
 
 
-
-
-
+var io = require('socket.io').listen(80);
+io.sockets.on('connection', function (socket) {
+  console.log("rregregre")
+  gulp.task('printscreens');
+});
 
 
 gulp.task('default', ['browser-sync']);

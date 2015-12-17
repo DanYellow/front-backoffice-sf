@@ -23,12 +23,20 @@
             </div>
         </div>
     </header>
+    {% set printscreensDatas = datas.printscreens %}
     <div class="container"> 
         {% block content %}{% endblock %} 
     </div>
-
-    {% include "../includes/toolbar-project-overview.html" %}
+    {% include "includes/toolbar-project-overview.html" %}
     
-    {% block scripts %}{% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js"></script>
+    <script>
+    var socket = io();
+    window.foo = function() {
+      alert("tre")
+      socket.emit('printscreens');
+    }
+    </script>
+    {% block scripts %}{% endblock %} 
 </body>
 </html>
