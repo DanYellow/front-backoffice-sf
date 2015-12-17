@@ -1,6 +1,5 @@
-{% extends 'base.html' %}
-
-
+{% extends 'layouts/base.html' %}
+ 
 {% block content %}
     <div class="row main-container stack-xs">
         {% include "../includes/navigation.html" %}
@@ -9,7 +8,7 @@
             <div id="main-wrapper">
                 <header>
                     <h3 class="semibold">
-                        {% block section-title %}Put a title plz{% endblock %}
+                        {% block sectiontitle %}Put a title plz{% endblock %}
                     </h3>
                     <nav>
                         <ul class="menu-header">

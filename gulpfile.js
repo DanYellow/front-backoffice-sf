@@ -2,50 +2,49 @@ var gulp = require('gulp');
 var clean = require('gulp-clean');
 var path = require("path");
 var fs = require("fs");
+//var app = require('express')();
 
 
-
-var swig = require('gulp-swig');
 
 gulp.task('templates', function(req, res) {
   var printscreenPath = "./public/printscreens"
   var printscreensArray = [];
-  var fileName = "", url = "";
+  var fileName = "", url = "", tplName = "";
 
-  // Contains every files "prinscreened"
-  var files = fs.readdirSync(printscreenPath)
+  try {
+    var isFolderExists = fs.lstatSync(printscreenPath);
+    if (isFolderExists.isDirectory()) {
+      var files = fs.readdirSync(printscreenPath)
 
-  var isFolderExists = fs.lstatSync(printscreenPath);
+      files = files.map(function (file) {
+        return path.join(printscreenPath, file);
+      }).filter(function (file) {
+          return fs.statSync(file).isFile();
+      }).forEach(function (file) { 
+          fileName = path.basename(file, path.extname(file))
+          tplName = fileName.split('!')[fileName.split('!').length-1].split('.')[0];
 
-    // Is it a directory?
-    try {
-      if (isFolderExists.isDirectory()) {
-        files = files.map(function (file) {
-          return path.join(printscreenPath, file);
-        }).filter(function (file) {
-            return fs.statSync(file).isFile();
-        }).forEach(function (file) { 
-            fileName = path.basename(file, path.extname(file))
-            url = fileName + ".html";
-            var tplToolbarObject = {name: fileName, imgPath: "printscreens/"+fileName+path.extname(file), path: url};
-            printscreensArray.push(tplToolbarObject)
-        });
-      }
-    } catch (e) {
-
+          url = tplName + ".html";
+          var tplToolbarObject = {tplName: tplName, imgPath: "printscreens/"+fileName+path.extname(file), path: url};
+          printscreensArray.push(tplToolbarObject)
+      });
     }
+  } catch (e) {
 
+  }
+  // app.address().port
   var opts = {
-        load_json: false,
-        data: {
-          printscreens: printscreensArray
-        }
-      };
+    datas: {
+      printscreens: printscreensArray
+    }
+  };
 
+  var nunjucksRender = require('gulp-nunjucks-render');
+  console.log(printscreensArray)
+  nunjucksRender.nunjucks.configure(['./dev/views/'], {watch: false});
   return gulp.src('./dev/views/*.html')
-    .pipe(swig(opts))
-    .pipe(swig({defaults: { cache: false }}))
-    .pipe(gulp.dest('./public/'));
+    .pipe(nunjucksRender(opts))
+    .pipe(gulp.dest('./public'));
 });
 
 
@@ -73,14 +72,14 @@ gulp.task('browser-sync', ['sass', 'templates', 'fonts',], function() {
     });
 
     gulp.watch("./dev/assets/styles/**/*.scss", ['sass']);
-    gulp.watch("./dev/views/**/*.html", ['printscreens', 'templates'])
+    gulp.watch("./dev/views/**/*.html", ['templates'])
     .on('change', browserSync.reload);
 });
 
 
 gulp.task('fonts', function(){
   // the base option sets the relative root for the set of files,
-  // preserving the folder structure
+  // preserving the folder structure 
   gulp.src("./dev/assets/fonts/**")
   .pipe(gulp.dest('./public/assets/fonts'));
 });
@@ -96,16 +95,29 @@ var Pageres = require('pageres');
 var rename = require("gulp-rename");
 
 gulp.task('printscreens', function () {
-  var pageres = new Pageres({delay: 2})
-    .src('http://127.0.0.1:3000/index.html', ['1000x1000'], {
-      crop: false,
-      filename: "<%= url %>",
-      hide: ["#pages-overview-toolbar"],
-      format: "jpg"
-    })
-    .dest("./public/printscreens")
-    .run()
-    .then(() => sanitizeFilesNames());
+  var files = fs.readdirSync('./public')
+  files.filter(function(file) { return file.substr(-5) === '.html'; })
+
+  files = files.filter(function (file) {
+      return file.substr(-5) === '.html';
+  }).map(function (file) {
+      //console.log(path.join('http:///127.0.0.1:3000\/', file))
+        return 'http://127.0.0.1:3000/' + file;
+  }).forEach(function (file) { 
+      var pageres = new Pageres()
+          .src(file, ['1000x1000'], {
+            crop: false,
+            filename: "<%= url %>",
+            hide: ["#pages-overview-toolbar"],
+            format: "jpg"
+          })
+          .dest("./public/printscreens")
+          .run()
+          .then();
+
+  });
+
+    //.then(() => sanitizeFilesNames());
 });
 
 // @sanitizeFilesNames
