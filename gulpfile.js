@@ -79,13 +79,6 @@ gulp.task('browser-sync', ['sass', 'templates', 'fonts', 'browserify'], function
     .on('change', browserSync.reload);
 });
 
-browserSync.sockets.on('foo', function (socket) {
-  console.log("rregregre")
-  gulp.task('printscreens');
-});
-
-
-
 gulp.task('fonts', function(){
   // the base option sets the relative root for the set of files,
   // preserving the folder structure 

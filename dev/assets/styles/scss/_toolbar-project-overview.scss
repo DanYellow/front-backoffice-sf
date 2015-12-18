@@ -3,6 +3,12 @@
         padding: 0;
         margin: 0;
     }
+
+    button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
     
     position: fixed;
     bottom: 0;
@@ -104,6 +110,16 @@
 
             img {
                 height:100%; width:auto; vertical-align: top;
+            }
+        }
+    }
+
+    #actions {
+        ul {
+            width: inherit;
+            margin-top: 15px;
+            li {
+                color: black;
             }
         }
     }

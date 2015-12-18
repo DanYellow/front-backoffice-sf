@@ -29,6 +29,13 @@
     </div>
     {% include "includes/toolbar-project-overview.html" %}
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js"></script>
+    <script> 
+/*        var socket = io.connect('localhost:5000');
+        console.dir(socket);
+        socket.emit('chat');*/
+     </script> 
+
     <script src="bundle.js"></script>
     {% block scripts %}{% endblock %} 
 </body>
