@@ -4,7 +4,7 @@ var path = require("path");
 var fs = require("fs");
 var app = require('express');
 
-
+var browserSync = require('browser-sync').create();
 
 gulp.task('templates', function(req, res) {
   var printscreenPath = "./public/printscreens"
@@ -32,7 +32,7 @@ gulp.task('templates', function(req, res) {
   } catch (e) {
 
   }
-  console.log(app)
+
   var opts = {
     datas: {
       printscreens: printscreensArray
@@ -60,21 +60,30 @@ gulp.task('sass', function () {
 });
  
 
-var browserSync = require('browser-sync').create();
+
 
 // Static server
-gulp.task('browser-sync', ['sass', 'templates', 'fonts'], function() {
+gulp.task('browser-sync', ['sass', 'templates', 'fonts', 'browserify'], function() {
     browserSync.init({
         server: {
-            baseDir: ["public", "dev"],
+            baseDir: "./public",
             index: "index.html"
         }
+    }, function (err, bs){
+      //console.log(bs.ui.port)
     });
 
     gulp.watch("./dev/assets/styles/**/*.scss", ['sass']);
-    gulp.watch("./dev/views/**/*.html", ['templates'])
+    gulp.watch("./dev/views/**/*.html", ['templates']);
+    gulp.watch("./dev/assets/scripts/**/*.js", ['browserify'])
     .on('change', browserSync.reload);
 });
+
+browserSync.sockets.on('foo', function (socket) {
+  console.log("rregregre")
+  gulp.task('printscreens');
+});
+
 
 
 gulp.task('fonts', function(){
@@ -86,24 +95,28 @@ gulp.task('fonts', function(){
 
 
 gulp.task('clean', function () {
-  return gulp.src(['public'], {read: false})
-    .pipe(clean());
+  console.log('frfre')
+  /*return gulp.src(['public'], {read: false})
+    .pipe(clean());*/
 });
 
 
 var Pageres = require('pageres');
-var rename = require("gulp-rename");
 
 gulp.task('printscreens', function () {
+
   var files = fs.readdirSync('./public')
   files.filter(function(file) { return file.substr(-5) === '.html'; })
 
+
   files = files.filter(function (file) {
+      // Take only html file
       return file.substr(-5) === '.html';
   }).map(function (file) {
-      //console.log(path.join('http:///127.0.0.1:3000\/', file))
-        return 'http://127.0.0.1:3000/' + file;
-  }).forEach(function (file) { 
+      // Prefix every html file by the root
+      return 'http://127.0.0.1:3000/' + file;
+  }).forEach(function (file) {
+      // Prefix every html file by the root
       var pageres = new Pageres()
           .src(file, ['1000x1000'], {
             crop: false,
@@ -114,33 +127,25 @@ gulp.task('printscreens', function () {
           .dest("./public/printscreens")
           .run()
           .then();
-
   });
-
-    //.then(() => sanitizeFilesNames());
 });
 
-// @sanitizeFilesNames
-// @desc : clean file name to be correct for the toolbar
-// @todo : remove old file
-function sanitizeFilesNames () {
-  gulp.src("./public/printscreens/**/*")
-  .pipe(rename(function (path) {
-    path.basename = path.basename.split('!')[path.basename.split('!').length-1].split('.')[0];
-    path.extname = path.extname;
-  }))
-  .pipe(gulp.dest("./public/printscreens/"));
-}
-
-
-var io = require('socket.io').listen(80);
-io.sockets.on('connection', function (socket) {
-  console.log("rregregre")
-  gulp.task('printscreens');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+gulp.task('browserify', function() {
+    return browserify('./dev/assets/scripts/app.js')
+        .bundle()
+        //Pass desired output filename to vinyl-source-stream
+        .pipe(source('bundle.js'))
+        // Start piping stream to tasks!
+        .pipe(gulp.dest('./public/'));
 });
+
 
 
 gulp.task('default', ['browser-sync']);
 
+
+gulp.task('pst', ['printscreens', 'templates']);
 
 gulp.task('package', ['clean']);

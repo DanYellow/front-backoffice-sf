@@ -8,12 +8,13 @@
     bottom: 0;
     height: 250px;
     background-color: #f9f9f9;
-    width: 100%;
+    width: 100%; 
     z-index: 9999;
     border-top: 3px solid #1a2a35;
+    transition: bottom .3s;
 
-    &.expanded {
-        bottom: -210px;
+    &.collapsed {
+        bottom: -212px;
     }
 
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -25,7 +26,7 @@
         width: 95.5%;
     }
 
-    .toolbar__display-manager {
+    #toolbar__display-manager {
         opacity: .8;
         position: absolute;
         top: 0;
@@ -48,6 +49,10 @@
             vertical-align: top;
             font-size: 12px;
             padding-bottom: 6px;
+
+            &.active {
+                background-color: #e7e7e7;
+            }
 
             .text-container {
                 display: table;

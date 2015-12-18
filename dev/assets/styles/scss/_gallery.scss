@@ -21,12 +21,12 @@
         overflow: hidden;
         margin-right: auto;
         margin-bottom: auto;
-        cursor: pointer;
 
         &:hover, &:focus {
             .list-gallery__elmt-container {
                 opacity: 1;
-                transform: rotateX(0deg);
+                transform: scale(1, 1);
+               // transform: rotateX(0deg);
             }
 
             figure:after {
@@ -42,9 +42,9 @@
             top: 0; left: 0; right: 0; bottom: 0;
             padding: 5px 10px 3px;
 
-            transform: rotateX(-90deg);
-            transform-origin: 50% 100%;
-            transition: .35s ease-in;
+           transform: scale(.85, .85);
+           // transform-origin: 50% 100%;
+            transition: .20s ease-in-out;
 
             ul.infos {
                 li {
