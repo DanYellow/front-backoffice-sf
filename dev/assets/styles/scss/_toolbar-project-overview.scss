@@ -30,7 +30,10 @@
     transition: bottom .3s;
 
     &.collapsed {
-        bottom: -212px;
+        bottom: -196px;
+        #toolbar__container {
+            height: 51px;
+        }
     }
 
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -70,7 +73,7 @@
                 background-color: #e7e7e7;
             }
 
-            &.gallery-tpl {
+            &.printscreens-list__item {
                 &:hover {
                     background-color: #f2f2f2;
                 }
