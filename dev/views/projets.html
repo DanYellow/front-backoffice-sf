@@ -6,6 +6,8 @@
 
 {% import 'macros/gallery.html' as gallery %}
 
+{% set menuHeader = true %}
+
 {% block main %}
     {% set datas = [{imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project1"},
     {imgPath: "http://lorempixel.com/400/200/cats/1/", projectName:"Project2"},
@@ -19,10 +21,10 @@
     ]  %}
     <ul class="list-unstyled list-gallery">
         {% for val in datas %}
-        {{ gallery.galleryelmt(val.imgPath, val.projectName, "work") }}
+            {{ gallery.galleryelmt(val.imgPath, val.projectName, "work") }}
         {% endfor %}
         {% for val in datas %}
-        {{ gallery.galleryelmt(val.imgPath, val.projectName, "perso") }}
+            {{ gallery.galleryelmt(val.imgPath, val.projectName, "perso") }}
         {% endfor %}
     </ul>
 

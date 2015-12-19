@@ -1,0 +1,49 @@
+<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header__top">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Bibliothèque d'images</h4>
+          <span>Veuillez sélectionner une ou plusieurs images</span>
+        </div>
+        
+
+        <form class="search__container">
+          <p>Rechercher par nom</p>
+          <input type="text" placeholder="Nom du fichier"/>
+          <p class="nb-results">5 résultats trouvés</p>
+        </form>
+      </div>
+      <div class="modal-body">
+        <div class="gallery-library__container">
+          <ul class="row list-unstyled gallery-library">
+            {% set datas = [{imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project1", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/1/", projectName:"Project2", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/2/", projectName:"Project3", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/3/", projectName:"Project4", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/5/", projectName:"Project5", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/10/", projectName:"Project5", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/5/", projectName:"Project5", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project6", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/7/", projectName:"Project6", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/9/", projectName:"Project6", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/8/", projectName:"Project6", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/0/", projectName:"Project6", isInProject: true},
+            {imgPath: "http://lorempixel.com/400/200/cats/9/", projectName:"Project6", isInProject: true}
+            ]  %}
+            {% for val in datas %}
+                <li class="col-md-4 col-sm-6 gallery-library__item">
+                  <button class="reset-btn" type="button">
+                    <figure>
+                      <img src="{{ val.imgPath }}" alt="">
+                    </figure>
+                  </button>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -74,7 +74,7 @@ gulp.task('browser-sync', ['sass', 'templates', 'fonts', 'browserify'], function
     });
 
     gulp.watch("./dev/assets/styles/**/*.scss", ['sass']);
-    gulp.watch("./dev/views/**/*.html", ['templates']);
+    gulp.watch("./dev/views/**/*.html", ['templates']).on('change', browserSync.reload);;
     gulp.watch("./dev/assets/scripts/**/*.js", ['browserify'])
     .on('change', browserSync.reload);
 });
@@ -124,9 +124,7 @@ gulp.task('printscreens', function () {
 });
 
 var browserify = require('browserify');
-var nunjucksify = require('nunjucksify');
 var source = require('vinyl-source-stream');
-var browserifyHandlebars = require('browserify-handlebars');
 
 gulp.task('browserify', function() {
     return browserify('./dev/assets/scripts/app.js')

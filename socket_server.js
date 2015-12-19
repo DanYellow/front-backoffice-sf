@@ -41,7 +41,7 @@ var doPrintscreens = function doPrintscreens(port, imagesSizes, socket) {
           .src(file, ['1000x1000'], {
             crop: false,
             filename: "<%= url %>",
-            hide: ["#pages-overview-toolbar"],
+            hide: ["#pages-overview-toolbar", "#__bs_notify__"],
             format: "jpg"
           })
           .dest(printscreensDestDirectory)
@@ -49,7 +49,7 @@ var doPrintscreens = function doPrintscreens(port, imagesSizes, socket) {
           .then();
   });
 
-  console.log(generatePrintScreensObject(socket))
+  generatePrintScreensObject(socket)
 }
 
 // @generatePrintScreensObject
@@ -76,7 +76,6 @@ var generatePrintScreensObject = function generatePrintScreensObject (socket) {
           url = tplName + ".html";
 
           if (imageFileTypeAccepted.indexOf(path.extname(file)) > -1) {
-            console.log(printscreensDirectory+fileName+path.extname(file))
             var tplToolbarObject = {tplName: tplName, imgPath: printscreensDirectory + '/' +fileName+path.extname(file), path: url};
             printscreensArray.push(tplToolbarObject);
           }
