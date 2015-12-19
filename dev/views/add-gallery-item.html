@@ -1,0 +1,30 @@
+{% extends 'layouts/base-backoffice.html' %}
+
+{% block title %}Galerie{% endblock %}
+
+{% block sectiontitle %}Ajouter une nouvelle image{% endblock %}
+
+{% import 'macros/gallery.html' as gallery %}
+
+{% block main %}
+    <div class="row">
+     <form action="#" class="col-xs-3">
+         <div class="form-element">
+             <label for="image-name">Nom de l'image (facultatif)</label>
+             <input type="text" id="image-name" name="image_name"/>
+         </div>
+         <div class="form-element">
+             <label for="image-src">Sélectionner une image</label>
+             <div class="inputfile__container">
+                 <input type="file" id="image-src" name="image_src" value="Choisir..." />
+                 <p class="fakeinput-file">Choisir...</p>
+             </div>
+         </div>
+
+         <div class="form-element">
+             <input type="submit" value="Ajouter">
+         </div>
+     </form>
+    </div>
+    
+{% endblock %}

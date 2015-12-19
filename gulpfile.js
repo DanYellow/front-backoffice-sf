@@ -124,7 +124,10 @@ gulp.task('printscreens', function () {
 });
 
 var browserify = require('browserify');
+var nunjucksify = require('nunjucksify');
 var source = require('vinyl-source-stream');
+var browserifyHandlebars = require('browserify-handlebars');
+
 gulp.task('browserify', function() {
     return browserify('./dev/assets/scripts/app.js')
         .bundle()

@@ -1,6 +1,6 @@
-<footer id="pages-overview-toolbar" class="collapsed">
+<!-- <footer id="pages-overview-toolbar" class="collapsed">
   <div id="toolbar__container">
-    <ul class="printscreens-list">
+    <ul class="printscreens-list">-->
         <li>
           <div class="text-container"><p><a href="http://127.0.0.1:3000">Pages Overview</a></p></div>
           <nav id="actions">
@@ -9,16 +9,16 @@
               <li><button>Générer captures d'écran</button></li>
             </ul>
           </nav>
-        </li>
-        {% for printscreenObj in printscreensDatas %}
-            <li class="gallery-tpl"><a href="{{ printscreenObj.path }}">
-                <div class="text-container"><p>{{ printscreenObj.tplName }}</p></div>
-                <figure><img src="{{ printscreenObj.imgPath }}" alt=""></figure>
+        </li> 
+        {{#each printscreensDatas}}
+            <li class="gallery-tpl"><a href="{{ this.path }}">
+                <div class="text-container"><p>{{ this.tplName }}</p></div>
+                <figure><img src="{{ this.imgPath }}" alt=""></figure>
             </a></li>
-        {% endfor %}
-    </ul>
+        {{/each}}
+<!--     </ul>
   </div>
   <div id="toolbar__display-manager">
-      <button>f</button>
+  <button>f</button>
   </div>
-</footer>
+</footer> -->

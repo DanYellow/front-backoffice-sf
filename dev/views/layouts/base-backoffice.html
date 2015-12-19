@@ -2,7 +2,7 @@
  
 {% block content %}
     <div class="row main-container stack-xs">
-        {% include "../includes/navigation.html" %}
+        {% include "includes/navigation.html" %}
 
         <section class="col-xs-12 col-md-9">
             <div id="main-wrapper">
@@ -10,31 +10,19 @@
                     <h3 class="semibold">
                         {% block sectiontitle %}Put a title plz{% endblock %}
                     </h3>
+                    {% if menuHeader %}
                     <nav>
                         <ul class="menu-header">
-                            <li>Bibliothèque d'images</li>
+                            <li>{% block section_subtitle %}Bibliothèque d'images (default){% endblock %}</li>
                             <li><a href="#">Ajouter une image</a></li>
                         </ul>
                     </nav>
-                    <div class="filters__container">
-                        <p class="h4">Filtres</p>
-                        <ul class="filters list-unstyled">
-                            <li><a href="#" class="active">Tout</a></li>
-                            <li><a href="#">Work</a></li>
-                            <li><a href="#">Perso</a></li>
-                        </ul>
-                    </div>
+                    {% endif %}
+                    {% block headerextras %}{% endblock %}
+                    
                 </header>
                 {% block main %}{% endblock %}
-                <nav id="pagination">
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="active">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#" class="ellipsis">...</a></li>
-                        <li><a href="#">42</a></li>
-                    </ul>
-                </nav>
+                
             </div>
         </section>
            

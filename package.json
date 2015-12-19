@@ -10,6 +10,8 @@
     "bootstrap": "^3.3.6",
     "browser-sync": "^2.10.0",
     "browserify": "^12.0.1",
+    "browserify-handlebars": "^1.0.0",
+    "browserify-shim": "^3.8.11",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-bower": "0.0.11",
@@ -18,10 +20,24 @@
     "gulp-nunjucks-render": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
+    "handlebars": "^4.0.5",
+    "hbsfy": "^2.4.1",
+    "nunjucks": "^2.2.0",
+    "nunjucksify": "^0.2.2",
     "pageres": "^3.0.2",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim",
+      "nunjucksify",
+      "hbsfy"
+    ]
+  },
+  "browserify-shim": {
+    "nunjucks": "nunjucks"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

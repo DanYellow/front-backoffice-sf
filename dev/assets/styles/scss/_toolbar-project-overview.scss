@@ -9,6 +9,16 @@
         border: none;
         outline: none;
     }
+
+    .bordered {
+        border: 1px solid black;
+        padding: 5px 8px;
+        &:disabled {
+            border: 1px solid grey;
+            color: grey;
+            opacity: .5;
+        }
+    }
     
     position: fixed;
     bottom: 0;
@@ -29,7 +39,7 @@
         overflow-x: scroll;
         overflow-y: hidden;
         height: 100%;
-        width: 95.5%;
+        width: 96.3%;
     }
 
     #toolbar__display-manager {
@@ -60,6 +70,15 @@
                 background-color: #e7e7e7;
             }
 
+            &.gallery-tpl {
+                &:hover {
+                    background-color: #f2f2f2;
+                }
+                a {
+                    text-transform: capitalize;
+                }
+            }
+
             .text-container {
                 display: table;
                 position: relative;
@@ -78,7 +97,7 @@
             }
 
             &:first-child {
-                width: 135px;
+                width: 160px;
                 color: white;
 
                 .text-container {

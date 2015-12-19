@@ -1,0 +1,47 @@
+form {
+  input{
+    &[type="submit"] {
+        color: $main-blue;
+        padding: 7px 40px;
+        margin-top: 36px;
+    }
+    &[type="text"], &[type="password"] {
+      padding: 10px 20px;
+    }
+  }
+
+  .inputfile__container {
+    position: relative;
+    cursor: pointer;
+
+    input[type="file"] {
+       opacity: 0;
+       top: 0; left: 0; right: 0; bottom: 0; z-index: 9999;
+       position: absolute;
+    }
+
+    .fakeinput-file {
+      padding: 10px 20px; 
+      
+      text-align: center;
+      background-color: $main-blue;
+      border: 2px solid black;
+      color: white;
+      transition: 1s linear;
+      &:hover {
+        background-color: black;
+        border: 2px solid $main-blue;
+      }
+    }
+  }
+
+  .form-element {
+    margin-bottom: 18px;
+    & > * {
+        display: block;
+    }
+    label {
+        margin-bottom: 6px;
+    }
+  }
+}

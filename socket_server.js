@@ -2,24 +2,31 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var isPrintscreenFunctionOccuring = false;
 
 io.on('connection', function(socket){
   socket.emit('started');
-  socket.on('doPrintscreens', function(socket){
-    doPrintscreens(socket.port)
+
+  socket.on('doPrintscreens', function(message){
+    if (!isPrintscreenFunctionOccuring) {
+      isPrintscreenFunctionOccuring = true;
+      doPrintscreens(message.port, [], socket)
+    };
   }); 
 });
 
 var path = require("path");
 var fs = require("fs");
 var Pageres = require('pageres');
-var printscreensDirectory = "./public/printscreens";
+var printscreensDestDirectory = "./public/printscreens";
+var printscreensDirectory = "printscreens/";
+var imageFileTypeAccepted = [".jpg", ".jpeg", ".png"];
 
 // @doPrintscreens
 // @desc : Generate printscreen of the html file in the "public" directory
 // @param - port { Number } : Port of the server which runs the project
 // @returs null
-var doPrintscreens = function doPrintscreens(port) {
+var doPrintscreens = function doPrintscreens(port, imagesSizes, socket) {
   var files = fs.readdirSync('./public')
   files.filter(function(file) { return file.substr(-5) === '.html'; })
   files = files.filter(function (file) {
@@ -37,19 +44,19 @@ var doPrintscreens = function doPrintscreens(port) {
             hide: ["#pages-overview-toolbar"],
             format: "jpg"
           })
-          .dest(printscreensDirectory)
+          .dest(printscreensDestDirectory)
           .run()
           .then();
   });
 
-  console.log(generatePrintScreensObject())
+  console.log(generatePrintScreensObject(socket))
 }
 
 // @generatePrintScreensObject
 // @desc : Generate a JSON Object contained every datas of the printscreens
 // @returs JSON Object
-var generatePrintScreensObject = function generatePrintScreensObject () {
-  var printscreenPath = printscreensDirectory
+var generatePrintScreensObject = function generatePrintScreensObject (socket) {
+  var printscreenPath = printscreensDestDirectory
   var printscreensArray = [];
   var fileName = "", url = "", tplName = "";
 
@@ -67,17 +74,23 @@ var generatePrintScreensObject = function generatePrintScreensObject () {
           tplName = fileName.split('!')[fileName.split('!').length-1].split('.')[0];
 
           url = tplName + ".html";
-          var tplToolbarObject = {tplName: tplName, imgPath: printscreensDirectory+fileName+path.extname(file), path: url};
-          printscreensArray.push(tplToolbarObject)
+
+          if (imageFileTypeAccepted.indexOf(path.extname(file)) > -1) {
+            console.log(printscreensDirectory+fileName+path.extname(file))
+            var tplToolbarObject = {tplName: tplName, imgPath: printscreensDirectory + '/' +fileName+path.extname(file), path: url};
+            printscreensArray.push(tplToolbarObject);
+          }
       });
     }
   } catch (e) {
 
   }
 
+  isPrintscreenFunctionOccuring = false;
+  socket.emit('printScreensEnded', { printscreensDatas: printscreensArray });
   return printscreensArray;
 }
 
-/*http.listen(5000, function(res){
+http.listen(5000, function(res){
   console.log('listening on *:', http.address().port);
-});*/
+});

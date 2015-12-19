@@ -6,6 +6,18 @@
 
 {% import 'macros/gallery.html' as gallery %}
 
+{% set menuHeader = true %}
+{% block headerextras %}
+    <div class="filters__container">
+        <p class="h4">Filtres</p>
+        <ul class="filters list-unstyled">
+            <li><a href="#" class="active">Tout</a></li>
+            <li><a href="#">Work</a></li>
+            <li><a href="#">Perso</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
  {% block main %}
     {% set datas = [{imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project1"},
     {imgPath: "http://lorempixel.com/400/200/cats/1/", projectName:"Project2"},
@@ -22,4 +34,6 @@
         {{ gallery.galleryelmt(val.imgPath, val.projectName) }}
         {% endfor %}
     </ul>
+
+    {% include "includes/pagination.html" %}
 {% endblock %}
