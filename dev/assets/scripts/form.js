@@ -2,33 +2,54 @@ var $ = jQuery = require('jquery');
 var bootstrap = require('bootstrap');
 var ko = require('knockout');
 
-function ProjectForm() {
-  this.images = ko.observableArray();
+require('./utils');
+
+var ProjectForm = function ProjectForm() {
   var self = this;
+
+  this.projectImages = ko.observableArray();
+  this.imageName = ko.observable();
+
+  var galleryDatabaseDatas = $('.gallery-library').attr("data-gallery-items");
+  if (!galleryDatabaseDatas) { return; };
+  // Contains every datas from database 
+  galleryDatabaseDatas = ko.utils.parseJson(galleryDatabaseDatas);
+
+  this.galleryDatabaseDatas = ko.observableArray(galleryDatabaseDatas);
+
+  this.searchResults = ko.computed(function() {
+    if(!this.imageName()) {
+      return this.galleryDatabaseDatas(); 
+    } else {
+      return ko.utils.arrayFilter(self.galleryDatabaseDatas(), function(item) {
+          return String(item.projectName).toLowerCase().startsWith(String(self.imageName().toLowerCase())) || String(item.imgPath).toLowerCase().startsWith(String(self.imageName().toLowerCase()));
+      });
+    }
+  }, this);
 
   this.imageSelected = function (e) {
     var imgPath = $(e.currentTarget).attr("data-img-path");
-    if (self.images.indexOf(imgPath) > -1) {
+    if (self.projectImages.indexOf(imgPath) > -1) {
         // Entry exists in the array so we remove it
-        self.images.splice(self.images.indexOf(imgPath), 1);
+        self.projectImages.splice(self.projectImages.indexOf(imgPath), 1);
     } else {
-        self.images.push(imgPath);
+        self.projectImages.push(imgPath);
     }
   }
 
   this.removeProjectImage = function (e) {
     var imgPath = $(e.currentTarget).attr("data-img-path");
-    if (self.images.indexOf(imgPath) > -1) {
+    if (self.projectImages.indexOf(imgPath) > -1) {
         // Entry exists in the array so we remove it
-        self.images.splice(self.images.indexOf(imgPath), 1);
+        self.projectImages.splice(self.projectImages.indexOf(imgPath), 1);
     } else {
-        self.images.push(imgPath);
+        self.projectImages.push(imgPath);
     }
   }
 
   this.bindEvents = function() {
-      $('.gallery-library__item button').on('click', this.imageSelected)
-      $('.list-images-selected').on('click', '.list-images-selected__item button', this.removeProjectImage)
+      $('.gallery-library').on('click', '.gallery-library__item button', this.imageSelected);
+      $('.list-images-selected').on('click', '.list-images-selected__item button', this.removeProjectImage);
   };
   this.bindEvents();
 }

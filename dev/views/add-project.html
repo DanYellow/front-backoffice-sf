@@ -10,11 +10,15 @@
     <div class="row">
      <form action="#" class="col-xs-12">
          <div class="form-element">
-             <label for="image-name">Nom de l'image (facultatif)</label>
+             <label for="image-name">Nom du projet</label>
              <input type="text" id="image-name" name="image_name"/>
          </div>
          <div class="form-element">
-             <label for="image-name">Sélectionner image</label>
+         <label for="description">Description</label>
+         <textarea name="hoo" id="description" rows="5"></textarea>
+         </div>
+         <div class="form-element">
+             <label for="image-name">Sélectionner catégorie</label>
              <select name="" id="">
                  <option value="">Work</option>
                  <option value="">Perso</option>
@@ -37,14 +41,19 @@
             </button>
          </div>
 
-         <div class="form-element">
-             <ul class="row list-images-selected list-unstyled no-margin" data-bind="foreach: images">
+         <div class="form-element list-images-selected__container">
+            <div data-bind="visible: projectImages().length == 0" class="empty-message__container">
+                <span class="empty-message">
+                    Il n'y a pas d'images pour ce projet
+                </span>
+            </div>
+             <ul class="row list-images-selected list-unstyled no-margin" data-bind="foreach: projectImages">
                 <li class="col-md-3 col-sm-6 list-images-selected__item">
-                  <button class="reset-btn" type="button" data-bind="attr: { 'data-img-path': $data }">
+                  <button class="reset-btn" type="button" data-bind="attr: { 'data-img-path': $data }">&times;</button>
                     <figure>
                       <img data-bind="attr: { src: $data }" alt="">
                     </figure>
-                  </button>
+                  
               </li>
              </ul>
          </div>

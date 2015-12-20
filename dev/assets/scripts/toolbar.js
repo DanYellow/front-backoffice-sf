@@ -21,11 +21,11 @@ var getItemSelected = function getItemSelected (index) {
   elementSelectedIndex = index;
 
   var currentPage = {index: index, isToolbarCollapsed: isToolbarCollapsed}
-  window.localStorage.setItem('_toolbarCurrentPage', JSON.stringify(currentPage));
+  window.sessionStorage.setItem('_toolbarCurrentPage', JSON.stringify(currentPage));
 }
 
 window.addEventListener("load", function() {
-  var elementSelectedIndex = JSON.parse(window.localStorage.getItem('_toolbarCurrentPage')).index;
+  var elementSelectedIndex = JSON.parse(window.sessionStorage.getItem('_toolbarCurrentPage')).index;
   if (!isNaN(elementSelectedIndex) ) {
     printscreensListItems[elementSelectedIndex].classList.add("active");
     printscreensListItems[elementSelectedIndex].scrollIntoView();
