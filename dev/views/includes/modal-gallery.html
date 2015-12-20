@@ -20,24 +20,34 @@
       </div>
       <div class="modal-body">
         <div class="gallery-library__container">
-          <ul class="row list-unstyled gallery-library" data-gallery-items='[{"imgPath": "http://lorempixel.com/400/200/cats/6/", "projectName":"Project1", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/1/", "projectName":"Project2", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/2/", "projectName":"Project3", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/3/", "projectName":"Project4", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project5", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/10/", "projectName":"Project5", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project5", "isInProject": true},
+          <ul class="row list-unstyled gallery-library" 
+          data-gallery-items='[{"imgPath": "http://lorempixel.com/400/200/cats/6/", "projectName":"Project1", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/1/", "projectName":"Project2", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/2/", "projectName":"Project3", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/3/", "projectName":"Project4", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project5", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/10/", "projectName":"Project5", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project5", "isInProject": false},
             {"imgPath": "http://lorempixel.com/400/200/cats/6/", "projectName":"Project6", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/7/", "projectName":"Project6", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/9/", "projectName":"Project6", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/8/", "projectName":"Project6", "isInProject": true},
-            {"imgPath": "http://lorempixel.com/400/200/cats/0/", "projectName":"Project6", "isInProject": true},
+            {"imgPath": "http://lorempixel.com/400/200/cats/7/", "projectName":"Project6", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/9/", "projectName":"Project6", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/8/", "projectName":"Project6", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/0/", "projectName":"Project8", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project6", "isInProject": true},
+            {"imgPath": "http://lorempixel.com/400/200/cats/0/", "projectName":"Project6", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/4/", "projectName":"Project6", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/10/", "projectName":"Project8", "isInProject": true},
+            {"imgPath": "http://lorempixel.com/400/200/cats/0/", "projectName":"Project4", "isInProject": true},
+            {"imgPath": "http://lorempixel.com/400/200/cats/3/", "projectName":"Project4", "isInProject": false},
+            {"imgPath": "http://lorempixel.com/400/200/cats/7/", "projectName":"Project6", "isInProject": false},
             {"imgPath": "http://lorempixel.com/400/200/cats/9/", "projectName":"Project6", "isInProject": true}
-            ]' data-bind="foreach: searchResults">
-                <li class="col-lg-3 col-md-4 col-sm-6 gallery-library__item">
+            ]' 
+            data-bind="foreach: searchResults">
+                <li class="col-md-4 col-sm-6 gallery-library__item" data-bind="attr: { 'class': 'col-md-4 col-sm-6 gallery-library__item col-lg-' + $parent.classItems() }">
+                 <!-- <p class="nb-results" data-bind="text: Math.floor($parent.searchResults().length/2)"></p> -->
                   <button class="reset-btn" type="button" data-bind="attr: { 'data-img-path': imgPath }">
                     <figure>
-                      <img data-bind="attr: { src: imgPath }" alt="">
+                      <img data-bind="attr: { src: imgPath }" alt="" />
                     </figure>
                   </button>
               </li>

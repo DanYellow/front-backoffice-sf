@@ -7,6 +7,16 @@
 {% import 'macros/gallery.html' as gallery %}
 
 {% set menuHeader = true %}
+{% block headerextras %}
+    <div class="filters__container">
+        <p class="h4">Filtres</p>
+        <ul class="filters list-unstyled">
+            <li><a href="#" class="active" data-filter-name="all">Tout</a></li>
+            <li><a href="#" data-filter-name="work">Work</a></li>
+            <li><a href="#" data-filter-name="perso">Perso</a></li>
+        </ul>
+    </div>
+{% endblock %}
 
 {% block main %}
     {% set datas = [{imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project1"},

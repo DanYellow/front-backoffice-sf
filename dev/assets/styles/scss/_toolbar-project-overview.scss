@@ -42,7 +42,8 @@
         overflow-x: scroll;
         overflow-y: hidden;
         height: 100%;
-        width: 96.3%;
+        //width: 96.3%;
+        width: calc(100% - 50px);
     }
 
     #toolbar__display-manager {

@@ -74,9 +74,9 @@ gulp.task('browser-sync', ['sass', 'templates', 'fonts', 'browserify'], function
     });
 
     gulp.watch("./dev/assets/styles/**/*.scss", ['sass']);
-    gulp.watch("./dev/views/**/*.html", ['templates']).on('change', browserSync.reload);;
+    gulp.watch("./dev/views/**/*.html", ['templates']);
     gulp.watch("./dev/assets/scripts/**/*.js", ['browserify'])
-    .on('change', browserSync.reload);
+    .on('change', browserSync.reload); 
 });
 
 gulp.task('fonts', function(){
