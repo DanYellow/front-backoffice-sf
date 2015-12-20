@@ -5,13 +5,16 @@
         <div class="modal-header__top">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Bibliothèque d'images</h4>
-          <span>Veuillez sélectionner une ou plusieurs images</span>
+          <span class="sub-text">Veuillez sélectionner une ou plusieurs images</span>
         </div>
         
 
         <form class="search__container">
           <p>Rechercher par nom</p>
-          <input type="text" placeholder="Nom du fichier"/>
+          <div class="search-gallery-item-input__container">
+            <input type="text" placeholder="Nom du fichier" />
+            <button type="reset" class="btn-reset-form reset-btn"><img src="" alt=""></button>
+          </div>
           <p class="nb-results">5 résultats trouvés</p>
         </form>
       </div>
@@ -34,7 +37,7 @@
             ]  %}
             {% for val in datas %}
                 <li class="col-md-4 col-sm-6 gallery-library__item">
-                  <button class="reset-btn" type="button">
+                  <button class="reset-btn" type="button" data-img-path="{{ val.imgPath }}">
                     <figure>
                       <img src="{{ val.imgPath }}" alt="">
                     </figure>
