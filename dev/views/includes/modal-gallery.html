@@ -45,7 +45,7 @@
             data-bind="foreach: searchResults">
                 <li class="col-md-4 col-sm-6 gallery-library__item" data-bind="attr: { 'class': 'col-md-4 col-sm-6 gallery-library__item col-lg-' + $parent.classItems() }">
                  <!-- <p class="nb-results" data-bind="text: Math.floor($parent.searchResults().length/2)"></p> -->
-                  <button class="reset-btn" type="button" data-bind="attr: { 'data-img-path': imgPath }">
+                  <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">
                     <figure>
                       <img data-bind="attr: { src: imgPath }" alt="" />
                     </figure>

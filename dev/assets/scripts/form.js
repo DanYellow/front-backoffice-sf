@@ -5,8 +5,10 @@ var _ = require('underscore');
 
 require('./utils');
 
-var ProjectForm = function ProjectForm() {
+var ProjectForm = function ProjectForm(searchDelay) {
   var self = this;
+
+  this.searchDelay = searchDelay;
 
   var galleryDatabaseDatas = $('.gallery-library').attr("data-gallery-items");
   if (!galleryDatabaseDatas) { return; };
@@ -21,6 +23,7 @@ var ProjectForm = function ProjectForm() {
 
   
 
+  
   this.searchResults = ko.computed(function() {
     if(!this.imageName()) {
       return this.galleryDatabaseDatas(); 
@@ -30,6 +33,7 @@ var ProjectForm = function ProjectForm() {
       });
     }
   }, this);
+  this.searchResults.extend({ rateLimit: this.searchDelay });
 
   this.classItems = ko.computed(function() {
     var classSuffix = 0;
@@ -47,12 +51,12 @@ var ProjectForm = function ProjectForm() {
   }, this);
 
   this.imageSelected = function (e) {
-    var imgPath = $(e.currentTarget).attr("data-img-path");
-    if (self.projectImages.indexOf(imgPath) > -1) {
+    var imgPath = ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")).imgPath;
+    if (_.findIndex(self.projectImages(), {imgPath: imgPath}) > -1) {
         // Entry exists in the array so we remove it
-        self.projectImages.splice(self.projectImages.indexOf(imgPath), 1);
+        self.projectImages.remove(function (item) { return String(item.imgPath) === String(imgPath); });
     } else {
-        self.projectImages.push(imgPath);
+        self.projectImages.push(ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")));
     }
   }
 
@@ -62,12 +66,9 @@ var ProjectForm = function ProjectForm() {
     if (_.findIndex(self.projectImages(), {imgPath: imgPath}) > -1) {
       var indexEl = _.findIndex(self.projectImages(), {imgPath: imgPath});
         // Entry exists in the array so we remove it
-        //console.log( self.projectImages())
        self.projectImages.remove(function (item) { return String(item.imgPath) === String(imgPath); });
-      /*self.projectImages().splice(indexEl, 1);
-      self.projectImages(self.projectImages());*/
     } else {
-        self.projectImages().push(imgPath);
+      console.error('how did you make this ?');
     }
   }
 
@@ -78,4 +79,4 @@ var ProjectForm = function ProjectForm() {
   this.bindEvents();
 }
 
-ko.applyBindings(new ProjectForm());
+ko.applyBindings(new ProjectForm(500));
