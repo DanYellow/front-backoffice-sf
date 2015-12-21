@@ -22,6 +22,8 @@ var printscreensDestDirectory = "./public/printscreens";
 var printscreensDirectory = "printscreens/";
 var imageFileTypeAccepted = [".jpg", ".jpeg", ".png"];
 
+var filesCountMax = 0; // Number of element eligible for printscreens
+var filesCount = 0;
 // @doPrintscreens
 // @desc : Generate printscreen of the html file in the "public" directory
 // @param - port { Number } : Port of the server which runs the project
@@ -35,8 +37,13 @@ var doPrintscreens = function doPrintscreens(port, imagesSizes, socket) {
   }).map(function (file) {
       // Prefix every html file by the root
       return 'http://127.0.0.1:'+ port + '/' + file;
-  }).forEach(function (file) {
+  });
+
+  filesCountMax = files.length;
+
+  files.forEach(function (file) {
       // Prefix every html file by the root
+
       var pageres = new Pageres()
           .src(file, ['1000x1000'], {
             crop: false,
@@ -46,10 +53,18 @@ var doPrintscreens = function doPrintscreens(port, imagesSizes, socket) {
           })
           .dest(printscreensDestDirectory)
           .run()
-          .then();
+          .then(() => dispatchGroupEmit(socket));
   });
 
-  generatePrintScreensObject(socket)
+  
+}
+
+var dispatchGroupEmit = function dispatchGroupEmit(socket) {
+  if(filesCount >= filesCountMax-1) { 
+    filesCount = 0;
+    generatePrintScreensObject(socket) 
+  }
+  filesCount++;
 }
 
 // @generatePrintScreensObject

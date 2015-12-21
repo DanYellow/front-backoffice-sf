@@ -46,6 +46,7 @@ generatePSBtn.addEventListener('click', function (e) {
 });
 
 socket.on('printScreensEnded', function(message){
+  console.log(message)
   generatePSBtn.disabled = false;
   printscreensList.innerHTML = template({printscreensDatas: message.printscreensDatas, port: window.location.port})
   //document.location.reload();
