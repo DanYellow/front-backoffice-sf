@@ -139,6 +139,8 @@ gulp.task('browserify', function() {
 
 gulp.task('default', ['browser-sync']);
 
+gulp.task('public', ['fonts', 'sass', 'browserify', 'templates']);
+
 
 gulp.task('pst', ['printscreens', 'templates']);
 
