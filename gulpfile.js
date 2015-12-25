@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var clean = require('gulp-clean');
 var path = require("path");
 var fs = require("fs");
 var app = require('express');
@@ -140,7 +139,6 @@ gulp.task('browserify', function() {
 gulp.task('default', ['browser-sync']);
 
 gulp.task('public', ['fonts', 'sass', 'browserify', 'templates']);
-
 
 gulp.task('pst', ['printscreens', 'templates']);
 

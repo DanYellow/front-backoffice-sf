@@ -19,6 +19,10 @@
 {% endblock %}
 
 {% block main %}
+    <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+    Image ajoutée</div>
     {% set datas = [{imgPath: "http://lorempixel.com/400/200/cats/6/", projectName:"Project1"},
     {imgPath: "http://lorempixel.com/400/200/cats/1/", projectName:"Project2"},
     {imgPath: "http://lorempixel.com/400/200/cats/2/", projectName:"Project3"},
