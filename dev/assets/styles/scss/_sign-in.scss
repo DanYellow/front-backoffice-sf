@@ -53,4 +53,13 @@
             }
         }
     }
+
+    &.error {
+        form {
+            padding-top: 0;
+        }
+        .alert {
+            margin: 20px;
+        }
+    }
 }

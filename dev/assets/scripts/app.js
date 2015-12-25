@@ -1,4 +1,5 @@
 
-var toolbar = require('./toolbar'); 
-var form = require('./form'); 
+var toolbar = require('./toolbar');
+var form = require('./galleryform');
+var projectform = require('./projectform');
 require('./filter-projects'); 

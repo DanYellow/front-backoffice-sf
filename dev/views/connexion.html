@@ -4,11 +4,16 @@
 
 
 {% block content %}
-    <div class="sign-in">
+    <div class="sign-in error">
         <header>
             <h2>Accès backoffice</h2>
             <h4>pikachu.fr</h4>
         </header>
+        <div class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error: </span>
+          Mon message d'erreur
+        </div>
         <form action="#" novalidate>
             <legend class="sr-only">Formulaire accès backoffice</legend>
             <div class="form-element">
