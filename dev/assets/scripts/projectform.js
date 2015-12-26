@@ -11,10 +11,21 @@ var ProjectForm = function ProjectForm(searchDelay) {
   this.searchDelay = searchDelay;
 
   var galleryDatabaseDatas = $('.gallery-library').attr("data-gallery-items");
+  var galleryBasePath = $('.gallery-library').attr("data-img-basepath");
+
+  // Mapping property for sf2 or any backend language
+  var galleryImgKey = $('.gallery-library').attr("data-img-key");
+
   if (!galleryDatabaseDatas) { return; };
   // Contains every datas from database 
   galleryDatabaseDatas = ko.utils.parseJson(galleryDatabaseDatas);
 
+  if (galleryBasePath) {
+    galleryDatabaseDatas = _.map(galleryDatabaseDatas, function(object){ return object[galleryImgKey] = galleryBasePath + object[galleryImgKey]; });
+  }
+  
+
+  // We associate these datas to a class property for knockoutjs
   this.galleryDatabaseDatas = ko.observableArray(galleryDatabaseDatas);
 
   this.projectImages = ko.observableArray(_.where(galleryDatabaseDatas, {isInProject: true}));

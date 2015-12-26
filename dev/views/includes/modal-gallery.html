@@ -42,7 +42,9 @@
             {"imgPath": "http://lorempixel.com/400/200/cats/7/", "projectName":"Project6", "isInProject": false},
             {"imgPath": "http://lorempixel.com/400/200/cats/9/", "projectName":"Project6", "isInProject": true}
             ]' 
-            data-bind="foreach: searchResults">
+            data-bind="foreach: searchResults"
+            data-img-basepath="http://www.foo.com/"
+            data-img-key="imgPath">
                 <li class="col-md-4 col-sm-6 gallery-library__item" data-bind="attr: { 'class': 'col-md-4 col-sm-6 gallery-library__item col-lg-' + $parent.classItems() }">
                  <!-- <p class="nb-results" data-bind="text: Math.floor($parent.searchResults().length/2)"></p> -->
                   <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">
