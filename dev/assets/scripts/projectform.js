@@ -12,16 +12,23 @@ var ProjectForm = function ProjectForm(searchDelay) {
 
   var galleryDatabaseDatas = $('.gallery-library').attr("data-gallery-items");
   var galleryBasePath = $('.gallery-library').attr("data-img-basepath");
+  var gallerySearchFilters = $('.gallery-library').attr("data-search-filters").split(',');
 
   // Mapping property for sf2 or any backend language
   var galleryImgKey = $('.gallery-library').attr("data-img-key");
 
+  // There is no images so nothing to show
   if (!galleryDatabaseDatas) { return; };
   // Contains every datas from database 
   galleryDatabaseDatas = ko.utils.parseJson(galleryDatabaseDatas);
 
+  // If image are stored in a "weird" base path, we map it
   if (galleryBasePath) {
-    galleryDatabaseDatas = _.map(galleryDatabaseDatas, function(object){ return object[galleryImgKey] = galleryBasePath + object[galleryImgKey]; });
+    galleryDatabaseDatas = _.map(galleryDatabaseDatas, function(object){ 
+      object[galleryImgKey] = galleryBasePath + object[galleryImgKey];
+      
+      return object; 
+    });
   }
   
 
@@ -29,16 +36,18 @@ var ProjectForm = function ProjectForm(searchDelay) {
   this.galleryDatabaseDatas = ko.observableArray(galleryDatabaseDatas);
 
   this.projectImages = ko.observableArray(_.where(galleryDatabaseDatas, {isInProject: true}));
-  this.imageName = ko.observable();
+  this.searchTyped = ko.observable();
   this.classItems = ko.observable();
 
   
   this.searchResults = ko.computed(function() {
-    if(!this.imageName()) {
+    if(!this.searchTyped()) {
       return this.galleryDatabaseDatas(); 
     } else {
       return ko.utils.arrayFilter(self.galleryDatabaseDatas(), function(item) {
-          return String(item.projectName).toLowerCase().startsWith(String(self.imageName().toLowerCase())) || String(item.imgPath).toLowerCase().startsWith(String(self.imageName().toLowerCase()));
+          for (var i = 0; i < gallerySearchFilters.length; i++) {
+            return String(item[gallerySearchFilters[i]]).toLowerCase().startsWith(String(self.searchTyped().toLowerCase()))
+          };
       });
     }
   }, this);

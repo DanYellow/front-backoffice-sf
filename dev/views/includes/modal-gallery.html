@@ -12,7 +12,7 @@
         <form class="search__container">
           <p>Rechercher par nom</p>
           <div class="search-gallery-item-input__container">
-            <input type="text" placeholder="Nom du fichier" data-bind="textInput: imageName, valueUpdate:'keyup'" />
+            <input type="text" placeholder="Nom du fichier" data-bind="textInput: searchTyped, valueUpdate:'keyup'" />
             <button type="reset" class="btn-reset-form reset-btn"><span aria-hidden="true">&times;</span></button>
           </div>
           <p class="nb-results" data-bind="text: searchResults().length + ' résultat(s) trouvé(s)'"></p>
@@ -43,8 +43,9 @@
             {"imgPath": "http://lorempixel.com/400/200/cats/9/", "projectName":"Project6", "isInProject": true}
             ]' 
             data-bind="foreach: searchResults"
-            data-img-basepath="http://www.foo.com/"
-            data-img-key="imgPath">
+            data-img-basepath=""
+            data-img-key="imgPath"
+            data-search-filters="projectName, imgPath">
                 <li class="col-md-4 col-sm-6 gallery-library__item" data-bind="attr: { 'class': 'col-md-4 col-sm-6 gallery-library__item col-lg-' + $parent.classItems() }">
                  <!-- <p class="nb-results" data-bind="text: Math.floor($parent.searchResults().length/2)"></p> -->
                   <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">
