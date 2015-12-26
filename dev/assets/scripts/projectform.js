@@ -33,8 +33,6 @@ var ProjectForm = function ProjectForm(searchDelay) {
   this.classItems = ko.observable();
 
   
-
-  
   this.searchResults = ko.computed(function() {
     if(!this.imageName()) {
       return this.galleryDatabaseDatas(); 
