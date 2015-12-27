@@ -14,6 +14,9 @@ var ProjectForm = function ProjectForm(searchDelay) {
   var galleryBasePath = $('.gallery-library').attr("data-img-basepath");
   var gallerySearchFilters = $('.gallery-library').attr("data-search-filters").split(',');
 
+  var hiddenInput = $('[data-hidden-input-id]').attr("data-hidden-input-id")
+  self.hiddenInput = $(hiddenInput);
+
   // Mapping property for sf2 or any backend language
   var galleryImgKey = $('.gallery-library').attr("data-img-key");
 
@@ -72,25 +75,28 @@ var ProjectForm = function ProjectForm(searchDelay) {
   }, this);
 
   this.imageSelected = function (e) {
-    var imgPath = ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")).imgPath;
-    if (_.findIndex(self.projectImages(), {imgPath: imgPath}) > -1) {
+    var idImg = ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")).id;
+  
+    if (_.findIndex(self.projectImages(), {id: idImg}) > -1) {
         // Entry exists in the array so we remove it
-        self.projectImages.remove(function (item) { return String(item.imgPath) === String(imgPath); });
+        self.projectImages.remove(function (item) { return Number(item.id) === Number(idImg); });
     } else {
         self.projectImages.push(ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")));
     }
+    self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
   }
 
   this.removeProjectImage = function (e) {
-    var imgPath = $(e.currentTarget).attr("data-img-path");
+    var idImg = ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")).id;
     
-    if (_.findIndex(self.projectImages(), {imgPath: imgPath}) > -1) {
-      var indexEl = _.findIndex(self.projectImages(), {imgPath: imgPath});
+    if (_.findIndex(self.projectImages(), {id: idImg}) > -1) {
         // Entry exists in the array so we remove it
-       self.projectImages.remove(function (item) { return String(item.imgPath) === String(imgPath); });
+      self.projectImages.remove(function (item) { return Number(item.id) === Number(idImg); });
     } else {
+      // Technically none should entry in this case
       console.error('how did you make this ?');
     }
+    self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
   }
 
   this.bindEvents = function() {

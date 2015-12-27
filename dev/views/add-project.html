@@ -52,15 +52,17 @@
                     Il n'y a pas d'images pour ce projet
                 </span>
             </div>
-             <ul class="row list-images-selected list-unstyled no-margin" data-bind="foreach: projectImages">
+             <ul data-hidden-input-id="#projectImagesId" 
+                 class="row list-images-selected list-unstyled no-margin" 
+                 data-bind="foreach: projectImages">
                 <li class="col-md-3 col-sm-6 list-images-selected__item">
-                  <button class="reset-btn" type="button" data-bind="attr: { 'data-img-path': $data.imgPath }">&times;</button>
+                  <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">&times;</button>
                     <figure>
                       <img data-bind="attr: { src: $data.imgPath }" alt="">
                     </figure>
-                  
               </li>
              </ul>
+            <input type="hidden" name="galleryItems" value="4,5,6" id="projectImagesId" />
          </div>
 
          <div class="form-element">
