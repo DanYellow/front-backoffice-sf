@@ -44,10 +44,13 @@ var ProjectForm = function ProjectForm(searchDelay) {
     if(!this.searchTyped()) {
       return this.galleryDatabaseDatas(); 
     } else {
-      return ko.utils.arrayFilter(self.galleryDatabaseDatas(), function(item) {
-          for (var i = 0; i < gallerySearchFilters.length; i++) {
-            return String(item[gallerySearchFilters[i]]).toLowerCase().startsWith(String(self.searchTyped().toLowerCase()))
-          };
+      return ko.utils.arrayFilter(self.galleryDatabaseDatas(), function(item) {  
+        var finalFilter = [];      
+        for (var i = 0; i < gallerySearchFilters.length; i++) {
+          finalFilter.push(String(item[gallerySearchFilters[i].trim()]).toLowerCase().startsWith(String(self.searchTyped().toLowerCase())));
+        };
+        
+        return _.contains(finalFilter, true);
       });
     }
   }, this);
