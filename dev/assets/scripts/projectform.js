@@ -13,7 +13,7 @@ var ProjectForm = function ProjectForm(searchDelay) {
   var galleryDatabaseDatas = $('.gallery-library').attr("data-gallery-items");
   var galleryBasePath = $('.gallery-library').attr("data-img-basepath");
   var gallerySearchFilters = $('.gallery-library').attr("data-search-filters").split(',');
-
+  var finalFilter = [];
   var hiddenInput = $('[data-hidden-input-id]').attr("data-hidden-input-id")
   self.hiddenInput = $(hiddenInput);
 
@@ -48,11 +48,12 @@ var ProjectForm = function ProjectForm(searchDelay) {
       return this.galleryDatabaseDatas(); 
     } else {
       return ko.utils.arrayFilter(self.galleryDatabaseDatas(), function(item) {  
-        var finalFilter = [];      
+           
         for (var i = 0; i < gallerySearchFilters.length; i++) {
           finalFilter.push(String(item[gallerySearchFilters[i].trim()]).toLowerCase().startsWith(String(self.searchTyped().toLowerCase())));
         };
         
+        finalFilter.length = 0;
         return _.contains(finalFilter, true);
       });
     }
