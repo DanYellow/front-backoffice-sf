@@ -20,8 +20,6 @@ var FilterProjects = function FilterProjects () {
         return;
       };
 
-      
-
       $('.list-gallery__elmt').css({'opacity' : .5});
       $('.list-gallery__elmt.' + filterName).css({'opacity' : 1});
     }

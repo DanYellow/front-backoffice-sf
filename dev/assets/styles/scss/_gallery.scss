@@ -115,3 +115,29 @@
         }
     }
 }
+
+
+#removeItemGalleryModal {
+  .modal-body {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    &:before {
+        content: "";
+        display: block;
+        padding-top: 56.25%;
+    }
+  }
+
+  .imgToDelete__container {
+      top: 0; left: 0; right: 0; bottom: 0;
+      position: absolute;
+    .imgToDelete {
+      padding: 10px;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  
+}

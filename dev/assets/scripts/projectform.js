@@ -6,6 +6,9 @@ var _ = require('underscore');
 require('./utils');
 
 var ProjectForm = function ProjectForm(searchDelay) {
+  // Prevent error if there no need of filter
+  if ($('.gallery-library').length == 0) { return };
+
   var self = this;
 
   this.searchDelay = searchDelay;
