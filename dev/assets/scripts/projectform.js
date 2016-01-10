@@ -31,20 +31,34 @@ var ProjectForm = function ProjectForm(searchDelay) {
   // Contains every datas from database 
   galleryDatabaseDatas = ko.utils.parseJson(galleryDatabaseDatas);
 
+  var projectsImagesId = self.hiddenInput.val().split(',');
+
   // If image are stored in a "weird" base path, we map it
-  if (galleryBasePath) {
-    galleryDatabaseDatas = _.map(galleryDatabaseDatas, function(object){ 
-      object[galleryImgKey] = galleryBasePath + object[galleryImgKey];
-      
-      return object; 
-    });
-  }
-  
+  galleryDatabaseDatas = _.map(galleryDatabaseDatas, function(object){ 
+    object[galleryImgKey] = galleryBasePath + object[galleryImgKey];
+    object["inProject"] = (projectsImagesId.indexOf(String(object.id)) > -1) ? true : false;
+    
+    return object; 
+  });
 
   // We associate these datas to a class property for knockoutjs
   this.galleryDatabaseDatas = ko.observableArray(galleryDatabaseDatas);
 
-  var projectsImagesId = self.hiddenInput.val().split(',');
+  var oldItem = _.findWhere(self.galleryDatabaseDatas(), {id: 92});
+  console.dir(oldItem)
+
+  this.galleryDatabaseDatas.subscribe(function(changes) {
+
+    // For this example, we'll just print out the change info
+    console.log(changes);
+
+}, null, "arrayChange");
+
+
+
+  // replace
+
+  
   this.projectImages = ko.observableArray(_.filter(galleryDatabaseDatas, function(item){
                           return projectsImagesId.indexOf(String(item.id)) > -1; }));
 
@@ -103,9 +117,18 @@ var ProjectForm = function ProjectForm(searchDelay) {
 
   this.imageSelected = function (e) {
     var idImg = ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")).id;
-  
+    console.log(self.galleryDatabaseDatas());
     if (_.findIndex(self.projectImages(), {id: idImg}) > -1) {
         // Entry exists in the array so we remove it
+        var oldItem = _.findWhere(self.galleryDatabaseDatas(), {id: idImg});
+        console.dir(oldItem);
+
+        var newItem = oldItem;
+        newItem.inProject = true;
+
+        
+        self.galleryDatabaseDatas.replace(oldItem, newItem);
+        console.log(self.galleryDatabaseDatas(), newItem);
         self.projectImages.remove(function (item) { return Number(item.id) === Number(idImg); });
     } else {
         self.projectImages.push(ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")));
@@ -118,7 +141,7 @@ var ProjectForm = function ProjectForm(searchDelay) {
     
     if (_.findIndex(self.projectImages(), {id: idImg}) > -1) {
         // Entry exists in the array so we remove it
-      self.projectImages.remove(function (item) { return Number(item.id) === Number(idImg); });
+      self.projectImages.remove(function (item) { item.isInProject = false; return Number(item.id) === Number(idImg); });
     } else {
       // Technically none should entry in this case
       console.error('how did you make this ?');

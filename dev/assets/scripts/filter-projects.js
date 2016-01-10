@@ -7,21 +7,22 @@ var FilterProjects = function FilterProjects () {
     this.filter = function (e) {
       clearTimeout(timeoutOpacity);
       var filterName = $(e.currentTarget).attr('data-filter-name');
-      if (String(filterName.toLowerCase()) === "all") {
-        $('.list-gallery__elmt').css({'opacity' : 1});
-        return;
-      };
+      // if (String(filterName.toLowerCase()) === "all") {
+      //   $('.list-gallery__elmt').css({'opacity' : 1});
+      //   return;
+      // };
 
-      if (e.type === "mouseout") {
-        timeoutOpacity = setTimeout(function() {
-           $('.list-gallery__elmt').css({'opacity' : 1});
-        }, 250);
+      // if (e.type === "mouseout") {
+      //   timeoutOpacity = setTimeout(function() {
+      //      $('.list-gallery__elmt').css({'opacity' : 1});
+      //   }, 250);
        
-        return;
-      };
+      //   return;
+      // };
 
-      $('.list-gallery__elmt').css({'opacity' : .5});
       $('.list-gallery__elmt.' + filterName).css({'opacity' : 1});
+      $('.list-gallery__elmt').css({'opacity' : .1});
+      // $('.list-gallery__elmt').addClass('out-of-filter');
     }
 
     

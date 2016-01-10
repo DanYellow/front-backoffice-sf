@@ -16,17 +16,14 @@ var DeleteGalleryItemManager = function DeleteGalleryItemManager () {
       
       $('[data-title]').text($caller.attr('data-title-modal'));
 
-      $('[data-delete-link]').attr('href', 
-        $('[data-delete-link]').attr('href').replace("__id__", $caller.attr("data-id"))
-        );
+      $('[data-delete-link]').attr('href', $caller.attr("data-url"));
 
       var nbImageOcurrences = $caller.attr('data-occurences-image');
       
       if (nbImageOcurrences) {
         var text = $('[data-text-image-occurences]').attr('data-default-text').replace("__nb__", Number(nbImageOcurrences));
         $('[data-text-image-occurences]').text(text);
-      };
-      
+      }; 
     }
 
     this.modalHidden = function (e) {

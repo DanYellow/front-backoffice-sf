@@ -25,11 +25,13 @@ var getItemSelected = function getItemSelected (index) {
 }
 
 window.addEventListener("load", function() {
-  var elementSelectedIndex = JSON.parse(window.sessionStorage.getItem('_toolbarCurrentPage')).index;
-  if (!isNaN(elementSelectedIndex) ) {
-    printscreensListItems[elementSelectedIndex].classList.add("active");
-    printscreensListItems[elementSelectedIndex].scrollIntoView();
-  };
+  if (window.sessionStorage.getItem('_toolbarCurrentPage')) {
+    var elementSelectedIndex = JSON.parse(window.sessionStorage.getItem('_toolbarCurrentPage')).index;
+    if (!isNaN(elementSelectedIndex) ) {
+      printscreensListItems[elementSelectedIndex].classList.add("active");
+      printscreensListItems[elementSelectedIndex].scrollIntoView();
+    };
+  }
 });
 
 for (var i = 0; i < printscreensListItems.length; i++) {

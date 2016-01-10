@@ -98,6 +98,20 @@
                 margin-bottom: 10px;
                 padding-bottom: 67.03027%;
                 position: relative;
+
+                .icon-checkmark {
+                    position: absolute;
+                    right: 2px;
+                    bottom: 2px;
+                    font-size: 25px;
+                    z-index: 9999;
+
+                    text-shadow: -1px -1px aliceblue, 
+                                 1px 1px aliceblue, 
+                                 -1px 1px aliceblue, 
+                                 1px -1px aliceblue;
+                }
+
                 img {
                     position: absolute;
                     top: 0; left: 0; right: 0; bottom: 0;
