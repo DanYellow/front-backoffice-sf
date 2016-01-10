@@ -1,5 +1,5 @@
 form {
-  input{
+  input, button {
     &[type="submit"] {
         color: $main-blue;
         padding: 7px 40px;
@@ -95,6 +95,7 @@ form {
     li.list-images-selected__item {
         padding: 0;
         position: relative;
+        cursor: move;
         button {
             position: absolute;
             display: block;
@@ -102,6 +103,7 @@ form {
             right: 10px;
             top: -10px;
             z-index: 100;
+            cursor: pointer;
             &:hover {
               color: #b5c5d0;
             }

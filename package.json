@@ -26,6 +26,7 @@
     "pageres": "^3.0.2",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
+    "sortablejs": "^1.4.2",
     "underscore": "^1.8.3",
     "vinyl-source-stream": "^1.1.0"
   },

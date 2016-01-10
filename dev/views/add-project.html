@@ -54,7 +54,8 @@
             </div>
              <ul data-hidden-input-id="#projectImagesId" 
                  class="row list-images-selected list-unstyled no-margin" 
-                 data-bind="foreach: projectImages">
+                 data-bind="foreach: projectImages"
+                 id="images-project">
                 <li class="col-md-3 col-sm-6 list-images-selected__item">
                   <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">&times;</button>
                     <figure>

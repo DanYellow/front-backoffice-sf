@@ -1,4 +1,4 @@
-input {
+input, button {
     &[type="text"], &[type="email"], &[type="password"]  {
         border: 1px solid $input-border-color;
         font-size: 14px;
@@ -17,6 +17,8 @@ input {
         }
     }
 }
+
+
 
 label {
     font-family: $opensans-light;

@@ -2,6 +2,7 @@ var $ = jQuery = require('jquery');
 var bootstrap = require('bootstrap');
 var ko = require('knockout');
 var _ = require('underscore');
+var Sortable = require('sortablejs');
 
 require('./utils');
 
@@ -16,6 +17,8 @@ var ProjectForm = function ProjectForm(searchDelay) {
   var galleryDatabaseDatas = $('.gallery-library').attr("data-gallery-items");
   var galleryBasePath = $('.gallery-library').attr("data-img-basepath");
   var gallerySearchFilters = $('.gallery-library').attr("data-search-filters").split(',');
+  var searchType = $('.gallery-library').attr("data-search-type")
+
   var finalFilter = [];
   var hiddenInput = $('[data-hidden-input-id]').attr("data-hidden-input-id")
   self.hiddenInput = $(hiddenInput);
@@ -41,7 +44,21 @@ var ProjectForm = function ProjectForm(searchDelay) {
   // We associate these datas to a class property for knockoutjs
   this.galleryDatabaseDatas = ko.observableArray(galleryDatabaseDatas);
 
-  this.projectImages = ko.observableArray(_.where(galleryDatabaseDatas, {isInProject: true}));
+  var projectsImagesId = self.hiddenInput.val().split(',');
+  this.projectImages = ko.observableArray(_.filter(galleryDatabaseDatas, function(item){
+                          return projectsImagesId.indexOf(String(item.id)) > -1; }));
+
+
+  var orderedDatas = [];
+  orderedDatas = _.map(this.projectImages(), function(item) {
+    item["order"] = projectsImagesId.indexOf(String(item.id));
+    
+    return item;
+  });
+
+  // We order the gallery items by by "order". This key is set by the backoffice
+  this.projectImages(_.sortBy(orderedDatas, "order"));
+  
   this.searchTyped = ko.observable();
   this.classItems = ko.observable();
 
@@ -51,12 +68,18 @@ var ProjectForm = function ProjectForm(searchDelay) {
       return this.galleryDatabaseDatas(); 
     } else {
       return ko.utils.arrayFilter(self.galleryDatabaseDatas(), function(item) {  
-           
+        var finalFilter = [];      
         for (var i = 0; i < gallerySearchFilters.length; i++) {
-          finalFilter.push(String(item[gallerySearchFilters[i].trim()]).toLowerCase().startsWith(String(self.searchTyped().toLowerCase())));
+          if (searchType === "contains") {
+            finalFilter.push(String(item[gallerySearchFilters[i].trim()]).toLowerCase().indexOf(String(self.searchTyped().toLowerCase())) > -1 );
+          } else if (searchType === "startsWith") {
+            finalFilter.push(String(item[gallerySearchFilters[i].trim()]).toLowerCase().startsWith(String(self.searchTyped().toLowerCase())));
+          } else {
+            console.log("wow it looks like there is an issue with the param data-search-type")
+            return true;
+          }
         };
         
-        finalFilter.length = 0;
         return _.contains(finalFilter, true);
       });
     }
@@ -103,9 +126,22 @@ var ProjectForm = function ProjectForm(searchDelay) {
     self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
   }
 
+  this.endReorder = function(evt) {
+    self.projectImages().move(evt.oldIndex, evt.newIndex);
+    self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
+  }
+
   this.bindEvents = function() {
       $('.gallery-library').on('click', '.gallery-library__item button', this.imageSelected);
       $('.list-images-selected').on('click', '.list-images-selected__item button', this.removeProjectImage);
+
+      var el = document.getElementById('images-project');
+      var sortable = Sortable.create(el, {
+            onEnd: function(evt) {
+              self.projectImages().move(evt.oldIndex, evt.newIndex);
+              self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
+            }
+      });
   };
   this.bindEvents();
 }

@@ -16,6 +16,10 @@ var DeleteGalleryItemManager = function DeleteGalleryItemManager () {
       
       $('[data-title]').text($caller.attr('data-title-modal'));
 
+      $('[data-delete-link]').attr('href', 
+        $('[data-delete-link]').attr('href').replace("__id__", $caller.attr("data-id"))
+        );
+
       var nbImageOcurrences = $caller.attr('data-occurences-image');
       
       if (nbImageOcurrences) {
