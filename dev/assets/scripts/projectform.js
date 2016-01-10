@@ -44,20 +44,6 @@ var ProjectForm = function ProjectForm(searchDelay) {
   // We associate these datas to a class property for knockoutjs
   this.galleryDatabaseDatas = ko.observableArray(galleryDatabaseDatas);
 
-  var oldItem = _.findWhere(self.galleryDatabaseDatas(), {id: 92});
-  console.dir(oldItem)
-
-  this.galleryDatabaseDatas.subscribe(function(changes) {
-
-    // For this example, we'll just print out the change info
-    console.log(changes);
-
-}, null, "arrayChange");
-
-
-
-  // replace
-
   
   this.projectImages = ko.observableArray(_.filter(galleryDatabaseDatas, function(item){
                           return projectsImagesId.indexOf(String(item.id)) > -1; }));
@@ -120,15 +106,6 @@ var ProjectForm = function ProjectForm(searchDelay) {
     console.log(self.galleryDatabaseDatas());
     if (_.findIndex(self.projectImages(), {id: idImg}) > -1) {
         // Entry exists in the array so we remove it
-        var oldItem = _.findWhere(self.galleryDatabaseDatas(), {id: idImg});
-        console.dir(oldItem);
-
-        var newItem = oldItem;
-        newItem.inProject = true;
-
-        
-        self.galleryDatabaseDatas.replace(oldItem, newItem);
-        console.log(self.galleryDatabaseDatas(), newItem);
         self.projectImages.remove(function (item) { return Number(item.id) === Number(idImg); });
     } else {
         self.projectImages.push(ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")));
