@@ -1,7 +1,7 @@
 .list-gallery {
     li.list-gallery__elmt {
         height: 100%;
-        width: 24.5%;
+        width: 24.6%;
         background-color: black;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
@@ -18,7 +18,7 @@
 
          
         display: inline-block;
-        padding-bottom: 16.1983%;
+        
 
         transition: .125s linear;
 
@@ -27,17 +27,17 @@
         margin-right: auto;
         margin-bottom: auto;
 
-        // &:hover, &:focus {
-        //     .list-gallery__elmt-container {
-        //         opacity: 1;
-                
-        //        // transform: rotateX(0deg);
-        //     }
+        &:hover, &:focus {
+            .list-gallery__elmt-container {
+                opacity: 1;
+                transform: scale(1, 1);
+               // transform: rotateX(0deg);
+            }
 
-        //     figure:after {
-        //         opacity: 1;
-        //     }
-        // }
+            figure:after {
+                opacity: 1;
+            }
+        }
 
         .list-gallery__elmt-container {
             border: 2px solid $main-font-color;         
@@ -46,10 +46,12 @@
             z-index: 1;
             top: 0; left: 0; right: 0; bottom: 0;
             padding: 5px 10px 3px;
+            background-color: rgba(0, 0, 0, .75);
 
-           // transform: scale(.85, .85);
+            transform: scale(.85, .85);
            // transform-origin: 50% 100%;
             transition: .20s ease-in-out;
+            
 
             ul.infos {
                 li {
@@ -99,22 +101,21 @@
         }
 
         figure {
-            height: 100%;
-            &:after {
-                content: " "; 
-                position: absolute;
-                opacity: 0;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background-color: rgba(26, 42, 53, .42);
+            width: 100%;
+            position: relative;
+            &:before {
+                content: "";
+                display: block;
+                padding-top: 61.734693878%;  /* initial ratio of 1:1*/
             } 
         }
+
         img {
-            position: absolute;
-            width:100%; 
-            height:100%;
-            object-fit: cover;
-            z-index: 0;
+            position:  absolute;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
     }
 }
@@ -125,19 +126,13 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    &:before {
-        content: "";
-        display: block;
-        padding-top: 56.25%;
-    }
   }
 
   .imgToDelete__container {
-      top: 0; left: 0; right: 0; bottom: 0;
-      position: absolute;
     .imgToDelete {
-      padding: 10px;
-      height: 100%;
+      max-height: 340px;
+      max-width: 100%;
+
       display: block;
       margin: 0 auto;
       object-fit: cover;
