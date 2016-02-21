@@ -1,10 +1,12 @@
 {% macro galleryelmt(imgPath, projectName, className) %}
-  <li class="list-gallery__elmt {{ className }}" tabindex="1">
+  <li class="list-gallery__elmt {{ className }} online" tabindex="1">
+    
     <div class="list-gallery__elmt-container">
         <ul class="list-unstyled infos">
             <li>{{ projectName }}</li>
             <li>{{ className }}</li> 
             <li>5 images</li>
+            <li class="online">En ligne</li>
         </ul>
 
         <ul class="toolbar list-unstyled">
@@ -14,7 +16,7 @@
                 data-toggle="modal" 
                 data-target="#removeItemGalleryModal" 
                 data-img-to-delete-src="http://lorempixel.com/700/1900/cats/8/"
-                data-url="http://www.foo.com/{{ projectName }}" 
+                data-url="#{{ projectName }}" 
                 data-title-modal="Souhaitez-vous supprimer cette image ?" 
                 data-occurences-image="5" 
                 data-id="42">

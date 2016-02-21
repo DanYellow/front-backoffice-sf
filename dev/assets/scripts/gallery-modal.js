@@ -1,48 +1,38 @@
-var $ = jQuery = require('jquery');
+var $         = jQuery = require('jquery');
 var bootstrap = require('bootstrap');
-var ko = require('knockout');
-var _ = require('underscore');
-var Sortable = require('sortablejs');
+var ko        = require('knockout');
+var _         = require('underscore');
 
-require('./utils');
-
-/**
- * ProjectForm
- * @class [description]
- * 
- * @param {[type]} searchDelay [description]
- */
-var ProjectForm = function ProjectForm(searchDelay) {
+var GalleryModal = function ProjectForm(searchDelay) {
   // Prevent error if there no need of filter
-  if ($('[data-modal-project-images]').length == 0) { return };
+  if ($('[data-modal-slider-image]').length == 0) { return };
 
   var self = this;
 
   this.searchDelay = searchDelay;
 
-  var galleryDatabaseDatas = $('[data-modal-project-images]').attr("data-gallery-items");
-  var galleryBasePath = $('[data-modal-project-images]').attr("data-img-basepath");
-  var gallerySearchFields = $('[data-modal-project-images]').attr("data-search-fields").split(',');
-  var searchType = $('[data-modal-project-images]').attr("data-search-type");
+  var galleryDatabaseDatas = $('[data-modal-slider-image]').attr("data-gallery-items");
+  var galleryBasePath = $('[data-modal-slider-image]').attr("data-img-basepath");
+  var gallerySearchFields = $('[data-modal-slider-image]').attr("data-search-fields").split(',');
+  var searchType = $('[data-modal-slider-image]').attr("data-search-type");
 
   var finalFilter = [];
-  var hiddenInput = $('[data-hidden-input-id]').attr("data-hidden-input-id")
+  var hiddenInput = $('[data-hidden-input-slider-id]').attr("data-hidden-input-slider-id")
   self.hiddenInput = $(hiddenInput);
 
   // Mapping property for sf2 or any backend language
-  var galleryImgKey = $('[data-modal-project-images]').attr("data-img-key");
-
+  var galleryImgKey = $('[data-modal-slider-image]').attr("data-img-key");
+  this.searchResults = []
   // There is no images so nothing to show
   if (!galleryDatabaseDatas) { return; };
   // Contains every datas from database 
   galleryDatabaseDatas = ko.utils.parseJson(galleryDatabaseDatas);
-
-  var projectsImagesId = self.hiddenInput.val().split(',');
+  var projectSliderImageId = self.hiddenInput.val().split();
 
   // If image are stored in a "weird" base path, we map it
   galleryDatabaseDatas = _.map(galleryDatabaseDatas, function(object){ 
     object[galleryImgKey] = galleryBasePath + object[galleryImgKey];
-    object["inProject"] = (projectsImagesId.indexOf(String(object.id)) > -1) ? true : false;
+    object["inProject"] = (projectSliderImageId.indexOf(String(object.id)) > -1) ? true : false;
     
     return object; 
   });
@@ -51,37 +41,24 @@ var ProjectForm = function ProjectForm(searchDelay) {
   this.galleryDatabaseDatas = ko.observableArray(galleryDatabaseDatas);
   // this.galleryDatabaseDatas.subscribe(function (newValue) { alert(JSON.stringify(newValue )); });
 
-  
-  this.projectImages = ko.observableArray(_.filter(galleryDatabaseDatas, function(item){
-                          return projectsImagesId.indexOf(String(item.id)) > -1; }));
-
-  // Item order in the project
-  var orderedDatas = [];
-  orderedDatas = _.map(this.projectImages(), function(item) {
-    item["order"] = projectsImagesId.indexOf(String(item.id));
-    
-    return item;
-  });
+  this.sliderImage = ko.observable(_.filter(galleryDatabaseDatas, function(item){
+                          return projectSliderImageId.indexOf(String(item.id)) > -1; })[0]);
 
   // force focus on popin display 
-  $('#galleryModal').on('shown.bs.modal', function (e) {
-    $("#gallerySearchInput").focus();
+  $('#gallerySliderModal').on('shown.bs.modal', function (e) {
+    $("#gallerySliderSearchInput").focus();
   })
 
-  // We order the gallery items by by "order". This key is set by the backoffice
-  this.projectImages(_.sortBy(orderedDatas, "order"));
   
-  this.searchTyped = ko.observable();
-  this.classItems = ko.observable();
+  this.searchTyped   = ko.observable();
+  this.classItems    = ko.observable();
+  
 
-  
   this.searchResults = ko.computed(function() {
-
     if(!this.searchTyped()) {
-      // console.log(self.galleryDatabaseDatas())
+
       return self.galleryDatabaseDatas(); 
     } else {
-      // console.log('no searchTyped')
       return ko.utils.arrayFilter(self.galleryDatabaseDatas(), function(item) {  
         var finalFilter = [];
         var userQuery = String(self.searchTyped().toLowerCase());
@@ -108,7 +85,7 @@ var ProjectForm = function ProjectForm(searchDelay) {
     }
   }, this).extend({ notify: 'always' });
   this.searchResults.extend({ rateLimit: this.searchDelay });
-
+ 
   this.classItems = ko.computed(function() {
     var classSuffix = 0;
     if (this.searchResults().length <= 2) {
@@ -141,14 +118,16 @@ var ProjectForm = function ProjectForm(searchDelay) {
     
     self.updateItemInSearch(idImg);
 
-    if (_.findIndex(self.projectImages(), {id: idImg}) > -1) {
-        // Entry exists in the array so we remove it
-        self.projectImages.remove(function (item) { return Number(item.id) === Number(idImg); });
-    } else {
-        self.projectImages.push(ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")));
-    }
+    console.log("sliderImage", self.sliderImage(), self.hiddenInput.val() == self.sliderImage().id)
 
-    self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
+    /// Current image selected is already set
+    if (self.hiddenInput.val() == idImg) {
+      self.sliderImage({});
+      self.hiddenInput.val(null);
+    } else {
+      self.sliderImage(ko.utils.parseJson($(e.currentTarget).attr("data-gallery-item")));
+      self.hiddenInput.val(self.sliderImage().id);
+    }    
   }
 
   this.removeProjectImage = function (e) {
@@ -156,34 +135,26 @@ var ProjectForm = function ProjectForm(searchDelay) {
 
     self.updateItemInSearch(idImg);
     
-    if (_.findIndex(self.projectImages(), {id: idImg}) > -1) {
+    if (_.findIndex(self.sliderImage(), {id: idImg}) > -1) {
         // Entry exists in the array so we remove it
-      self.projectImages.remove(function (item) { item.isInProject = false; return Number(item.id) === Number(idImg); });
+      self.sliderImage.remove(function (item) { item.isInProject = false; return Number(item.id) === Number(idImg); });
     } else {
       // Technically none should entry in this case
       console.error('how did you make this ?');
     }
-    self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
+    self.hiddenInput.val(_.pluck(self.sliderImage(), 'id').join(','));
   }
 
   this.endReorder = function(evt) {
-    self.projectImages().move(evt.oldIndex, evt.newIndex);
-    self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
+    self.sliderImage().move(evt.oldIndex, evt.newIndex);
+    self.hiddenInput.val(_.pluck(self.sliderImage(), 'id').join(','));
   }
 
   this.bindEvents = function() {
-      $('[data-modal-project-images]').on('click', '.gallery-library__item button', this.imageSelected);
-      $('.list-images-selected').on('click', '.list-images-selected__item button', this.removeProjectImage);
-
-      var el = document.getElementById('images-project');
-      var sortable = Sortable.create(el, {
-            onEnd: function(evt) {
-              self.projectImages().move(evt.oldIndex, evt.newIndex);
-              self.hiddenInput.val(_.pluck(self.projectImages(), 'id').join(','));
-            }
-      });
+    $('[data-modal-slider-image]').on('click', '.gallery-library__item button', this.imageSelected);
+    $('.list-images-selected').on('click', '.list-images-selected__item button', this.removeProjectImage);
   };
   this.bindEvents();
 }
 
-module.exports = ProjectForm;
+module.exports = GalleryModal;

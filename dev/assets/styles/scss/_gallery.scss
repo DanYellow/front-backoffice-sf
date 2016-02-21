@@ -1,19 +1,17 @@
 .list-gallery {
     li.list-gallery__elmt {
         height: 100%;
-        width: 24.6%;
+        width: 24.5%;
         background-color: black;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
 
         @media screen and (max-width: $break-small) {
             width: 100%;
-            padding-bottom: 42%;
         }
 
         @media screen and (min-width: $break-small) and (max-width: $screen-md-min) {
             width: 49.5%;
-            padding-bottom: 30%;
         }
 
          
@@ -39,6 +37,20 @@
             }
         }
 
+        &.online {
+          &:before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              border: 3px solid green;
+              z-index: 99;
+              pointer-events: none;
+          }
+        }
+
         .list-gallery__elmt-container {
             border: 2px solid $main-font-color;         
             opacity: 0;
@@ -48,9 +60,12 @@
             padding: 5px 10px 3px;
             background-color: rgba(0, 0, 0, .75);
 
+
             transform: scale(.85, .85);
            // transform-origin: 50% 100%;
             transition: .20s ease-in-out;
+
+
             
 
             ul.infos {
@@ -62,6 +77,10 @@
                         font-size: 14px;
                          @include semibold();
                          margin-bottom: -2px;
+                    }
+                    &.online {
+                        margin-top: 12px;
+                        color: green;
                     }
                 }
             }
@@ -106,16 +125,18 @@
             &:before {
                 content: "";
                 display: block;
-                padding-top: 61.734693878%;  /* initial ratio of 1:1*/
+                padding-top: 61.734693878%;
             } 
         }
 
         img {
-            position:  absolute;
-            top: 0;
+            min-height: 100%;
             left: 0;
             width: 100%;
-            height: 100%;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            top: 0;
         }
     }
 }

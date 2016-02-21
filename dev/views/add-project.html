@@ -7,69 +7,81 @@
 {% import 'macros/gallery.html' as gallery %}
 
 {% block main %} 
-    <div class="row">
-     <form action="#" class="col-xs-12">
-         <div class="alert alert-danger" role="alert">
-           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-           <span class="sr-only">Error:</span>
-           Enter a valid email address
-         </div>
-         <div class="form-element">
-             <label for="image-name">Nom du projet</label>
-             <input type="text" id="image-name" name="image_name"/>
-         </div>
-         <div class="form-element">
-         <label for="description">Description</label>
-         <textarea name="hoo" id="description" rows="5"></textarea>
-         </div>
-         <div class="form-element">
-             <label for="image-name">Sélectionner catégorie</label>
-             <select name="" id="">
-                 <option value="">Work</option>
-                 <option value="">Perso</option>
-             </select>
-         </div>
-         <div class="form-element">
-             <label for="online">Mettre en ligne</label>
-             <div class="input-radio-container">
-                <input type="radio" name="isonline" value="yes" checked id="oui">
-                <label for="oui">Oui</label> 
-             </div>
-             <div class="input-radio-container">
-                <input type="radio" name="isonline" value="yes" checked id="non">
-                <label for="non">Non</label> 
-             </div> 
-         </div>
-         <div class="form-element">
-             <button type="button" class="btn-select-images" data-toggle="modal" data-target="#galleryModal">
-            Sélectionner images
-            </button>
-         </div>
+  <div class="row">
+    <form action="#" class="col-xs-12">
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+         Enter a valid email address
+      </div>
+      <div class="form-element">
+        <label for="image-name">Nom du projet</label>
+        <input type="text" id="image-name" name="image_name"/>
+      </div>
+      <div class="form-element">
+        <label for="description">Description</label>
+        <textarea name="hoo" id="description" rows="5"></textarea>
+      </div>
+        <div class="form-element">
+          <label for="image-name">Sélectionner catégorie</label>
+          <select name="" id="">
+            <option value="">Work</option>
+            <option value="">Perso</option>
+          </select>
+        </div>
+        <div class="form-element">
+          <label for="online">Mettre en ligne</label>
+          <div class="input-radio-container">
+            <input type="radio" name="isonline" value="yes" checked id="oui">
+            <label for="oui">Oui</label> 
+          </div>
+          <div class="input-radio-container">
+            <input type="radio" name="isonline" value="yes" checked id="non">
+            <label for="non">Non</label> 
+          </div> 
+        </div>
+        <div class="form-element" data-bind="with: shell">
+          <label for="image-slider">Sélectionner image du slider</label>
+          <button class="image-slider" type="button" 
+                  data-target="#gallerySliderModal" data-toggle="modal" 
+                  data-hidden-input-slider-id="#sliderImagesId">
+            <figure>
+              <img data-bind="attr: { src: sliderImage().imgPath, alt: name }" alt="" data-bind="visible: sliderImage()">
+            </figure>
+            <input type="hidden" name="image-slider" id="sliderImagesId" value="5" />
+          </button>
+        </div>
+        <div class="form-element">
+          <label for="image-slider">Sélectionner image(s) du projet</label>
+          <button type="button" class="btn-select-images" data-toggle="modal" data-target="#galleryModal">
+          Sélectionner images 
+          </button>
+        </div>
 
-         <div class="form-element list-images-selected__container">
-            <div data-bind="visible: projectImages().length == 0" class="empty-message__container">
-                <span class="empty-message">
-                    Il n'y a pas d'images pour ce projet
-                </span>
-            </div>
-             <ul data-hidden-input-id="#projectImagesId" 
-                 class="row list-images-selected list-unstyled no-margin" 
-                 data-bind="foreach: projectImages"
-                 id="images-project">
-                <li class="col-md-3 col-sm-6 list-images-selected__item">
-                  <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">&times;</button>
-                    <figure>
-                      <img data-bind="attr: { src: $data.imgPath }" alt="">
-                    </figure>
-              </li>
-             </ul>
-            <input type="hidden" name="galleryItems" value="4,5,6,92" id="projectImagesId" />
-         </div>
+        <div class="form-element list-images-selected__container"  data-bind="with: profile">
+          <div data-bind="visible: projectImages().length == 0" class="empty-message__container">
+            <span class="empty-message">
+              Il n'y a pas d'images pour ce projet
+            </span>
+          </div>
+         <ul data-hidden-input-id="#projectImagesId" 
+              class="row list-images-selected list-unstyled no-margin" 
+              data-bind="foreach: projectImages"
+              id="images-project">
+            <li class="col-md-3 col-sm-6 list-images-selected__item">
+              <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">&times;</button>
+                <figure>
+                  <img data-bind="attr: { src: $data.imgPath, alt: name }" draggable="false" >
+                </figure>
+            </li>
+           </ul>
+          <input type="hidden" name="galleryItems" value="4,5,6,92" id="projectImagesId" />
+      </div>
 
-         <div class="form-element">
-             <input type="submit" value="Ajouter">
-         </div>
-     </form>
-    </div>
-    {% include "includes/modal-gallery.html" %} 
+      <div class="form-element">
+        <input type="submit" value="Ajouter">
+      </div>
+   </form>
+  </div>
+  {% include "includes/modal-gallery.html" %}
 {% endblock %}

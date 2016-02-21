@@ -1,4 +1,4 @@
-<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-bind="with: profile">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -12,47 +12,79 @@
         <form class="search__container">
           <p>Rechercher par nom</p>
           <div class="search-gallery-item-input__container">
-            <input type="text" placeholder="Nom du fichier" data-bind="textInput: searchTyped, valueUpdate:'keyup'" />
-            <button type="reset" class="btn-reset-form reset-btn"><span aria-hidden="true">&times;</span></button>
+            <input type="text" placeholder="Nom du fichier" id="gallerySearchInput" data-bind="textInput: searchTyped, valueUpdate:'keyup'" autofocus />
+            <button type="reset" class="btn-reset-form reset-btn" data-bind="visible: searchTyped"><span aria-hidden="true">&times;</span></button>
           </div>
           <p class="nb-results" data-bind="text: searchResults().length + ' résultat(s) trouvé(s)'"></p>
         </form>
       </div>
       <div class="modal-body">
+
         <div class="gallery-library__container">
           <ul class="row list-unstyled gallery-library" 
           data-gallery-items='[{"imgPath": "http://lorempixel.com/400/200/cats/6/", "projectName":"Project1", "isInProject": false, "id": 92},
-            {"imgPath": "http://lorempixel.com/400/200/cats/1/", "projectName":"Project2", "isInProject": false, "id": 5},
-            {"imgPath": "http://lorempixel.com/400/200/cats/2/", "projectName":"Project3", "isInProject": false, "id": 23},
-            {"imgPath": "http://lorempixel.com/400/200/cats/3/", "projectName":"Project4", "isInProject": false, "id": 6},
-            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project5", "isInProject": false, "id": 54},
-            {"imgPath": "http://lorempixel.com/400/200/cats/10/", "projectName":"Project5", "isInProject": false, "id": 42},
-            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project5", "isInProject": false, "id": 12},
-            {"imgPath": "http://lorempixel.com/400/200/cats/6/", "projectName":"Project6", "isInProject": true, "id": 90},
-            {"imgPath": "http://lorempixel.com/400/200/cats/7/", "projectName":"Project6", "isInProject": false, "id": 34},
-            {"imgPath": "http://lorempixel.com/400/200/cats/9/", "projectName":"Project6", "isInProject": false, "id": 13},
-            {"imgPath": "http://lorempixel.com/400/200/cats/8/", "projectName":"Project6", "isInProject": false, "id": 67},
-            {"imgPath": "http://lorempixel.com/400/200/cats/0/", "projectName":"Project8", "isInProject": false, "id": 20},
-            {"imgPath": "http://lorempixel.com/400/200/cats/5/", "projectName":"Project6", "isInProject": true, "id": 34},
-            {"imgPath": "http://lorempixel.com/400/200/cats/0/", "projectName":"Project6", "isInProject": false, "id": 28},
-            {"imgPath": "http://lorempixel.com/400/200/cats/4/", "projectName":"Project6", "isInProject": false, "id": 94},
-            {"imgPath": "http://lorempixel.com/400/200/cats/10/", "projectName":"Project8", "isInProject": true, "id": 67},
-            {"imgPath": "http://lorempixel.com/400/200/cats/0/", "projectName":"Project4", "isInProject": true, "id": 11},
-            {"imgPath": "http://lorempixel.com/400/200/cats/3/", "projectName":"Project4", "isInProject": false, "id": 8},
-            {"imgPath": "http://lorempixel.com/400/200/cats/7/", "projectName":"Project6", "isInProject": false, "id": 4},
-            {"imgPath": "http://lorempixel.com/400/200/cats/9/", "projectName":"Project6", "isInProject": true, "id": 1}
-            ]' 
+            {"imgPath": "http://lorempixel.com/400/200/cats/1/", "projectName":"Projéct2", "isInProject": false, "id": 5}]' 
             data-bind="foreach: searchResults"
             data-img-basepath=""
             data-img-key="imgPath"
-            data-search-filters="projectName, imgPath"
-            data-search-type="contains">
+            data-search-fields="projectName, imgPath"
+            data-search-type="contains"
+            data-modal-project-images>
                 <li class="col-md-4 col-sm-6 gallery-library__item" data-bind="attr: { 'class': 'col-md-4 col-sm-6 gallery-library__item col-lg-' + $parent.classItems() }">
-                  <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data) }">
+                  <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data), title: name }">
                     <figure>
                       <div class="icon-checkmark" data-bind="visible: inProject"></div>
                       
-                      <img data-bind="attr: { src: imgPath }" alt="" />
+                      <img data-bind="attr: { src: imgPath }" alt=""/>
+                    </figure>
+                  </button>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="gallerySliderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-bind="with: shell">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header__top">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Bibliothèque d'images</h4>
+          <span class="sub-text">Veuillez sélectionner une image</span>
+        </div>
+        
+
+        <form class="search__container">
+          <p>Rechercher par nom</p>
+          <div class="search-gallery-item-input__container">
+            <input type="text" placeholder="Nom du fichier" id="gallerySliderSearchInput" data-bind="textInput: searchTyped, valueUpdate:'keyup'" autofocus />
+            <button type="reset" class="btn-reset-form reset-btn" data-bind="visible: searchTyped"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <p class="nb-results" data-bind="text: searchResults().length + ' résultat(s) trouvé(s)'"></p>
+        </form>
+      </div>
+      <div class="modal-body">
+
+        <div class="gallery-library__container">
+          <ul class="row list-unstyled gallery-library" 
+          data-gallery-items='[{"imgPath": "http://lorempixel.com/400/200/cats/6/", "projectName":"Project1", "isInProject": false, "id": 92},
+            {"imgPath": "http://lorempixel.com/400/200/cats/1/", "projectName":"Projéct2", "isInProject": false, "id": 5}]' 
+            data-bind="foreach: searchResults"
+            data-img-basepath=""
+            data-img-key="imgPath"
+            data-search-fields="projectName, imgPath"
+            data-search-type="contains"
+            data-modal-slider-image>
+                <li class="col-md-4 col-sm-6 gallery-library__item" data-bind="attr: { 'class': 'col-md-4 col-sm-6 gallery-library__item col-lg-' + $parent.classItems() }">
+                  <button class="reset-btn" type="button" data-bind="attr: { 'data-gallery-item': JSON.stringify($data), title: name }">
+                    <figure>
+                      <div class="icon-checkmark" data-bind="visible: inProject"></div>
+                      
+                      <img data-bind="attr: { src: imgPath }" alt=""/>
                     </figure>
                   </button>
               </li>

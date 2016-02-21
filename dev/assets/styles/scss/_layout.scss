@@ -4,6 +4,9 @@ html {
     width: 100%;
     min-height: 100%;
     -webkit-overflow-scrolling: touch;
+
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
 } 
 
 body {
@@ -12,7 +15,7 @@ body {
     background-color: transparent;
 
     color: $main-font-color;
-    font-family: $opensans-regular; 
+    font-family: $opensans-regular;
 }
 
 header#main-header {
